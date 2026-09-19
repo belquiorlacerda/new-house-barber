@@ -49,16 +49,60 @@
     .hero-sec { display:flex !important; flex-direction:column !important; }
     .hero-content { padding-bottom:40px !important; }
   }
-  /* Tablet-only: the stacked hero (text, then full-width photo, then the
-     stats strip) was carrying desktop-sized top padding and a tall fixed
-     photo height, pushing the stats strip much further down than needed
-     on tablet widths. Trim it without touching mobile (≤640, which uses
-     the absolute-overlay hero, not this stacked one) or desktop (≥901,
-     side-by-side hero, untouched). */
+  /* Tablet-only (641–900px): the hero photo moves from stacked-on-top into the
+     hero itself, on the RIGHT side next to the text — the same idea as desktop.
+     The photo starts just to the right of the text column and fades from
+     transparent on its left edge to full strength on the right via a mask
+     gradient (light left → strong right). Mobile (≤640, absolute-overlay hero)
+     and desktop (≥901, its own side-by-side rules) are untouched. */
   @media (min-width:641px) and (max-width:900px){
-    .hero-content { padding-top:32px !important; padding-bottom:20px !important; order:2; }
-    .hero-media-col { height:280px !important; order:1; }
-    .hero-stats { position:static !important; order:3; }
+    .hero-sec {
+      display:block !important;
+      position:relative !important;
+      min-height:500px !important;
+      overflow:hidden !important;
+    }
+    .hero-content {
+      position:relative !important;
+      z-index:2 !important;
+      padding-top:52px !important;
+      padding-bottom:96px !important;
+      order:0 !important;
+    }
+    .hero-text { max-width:340px !important; }
+    .hero-media-col {
+      position:absolute !important;
+      top:0 !important;
+      right:0 !important;
+      bottom:0 !important;
+      left:calc(24px + 340px + 20px) !important;
+      width:auto !important;
+      height:auto !important;
+      z-index:0 !important;
+      order:0 !important;
+      overflow:hidden !important;
+    }
+    .hero-media-col picture, .hero-media-col img {
+      display:block !important;
+      width:100% !important;
+      height:100% !important;
+    }
+    .hero-media-col img {
+      object-fit:cover !important;
+      object-position:center !important;
+      opacity:1 !important;
+      -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 20%, rgba(255,255,255,0.72) 44%, rgba(255,255,255,1) 66%) !important;
+      mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 20%, rgba(255,255,255,0.72) 44%, rgba(255,255,255,1) 66%) !important;
+    }
+    .hero-media-legacy-fade { display:none !important; }
+    .hero-stats {
+      position:absolute !important;
+      left:0 !important;
+      right:0 !important;
+      bottom:0 !important;
+      z-index:2 !important;
+      order:0 !important;
+    }
   }
   @media (max-width:480px){
     .pacote-card, .pacote-photo { min-width:0 !important; }
