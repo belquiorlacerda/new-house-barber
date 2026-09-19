@@ -133,15 +133,21 @@
     .hero-media-col img, .hero-media-col video {
       object-fit:contain !important;
       object-position:center !important;
-      opacity:0.16 !important;
+      opacity:0.5 !important;
     }
-    /* strong fade over the text column so headline/paragraph/buttons stay fully
-       legible; the media only shows through as a faint hint near the right
-       edge, well clear of where the headline/description/buttons sit */
+    /* Mobile photo treatment: two stacked overlays give a directional look —
+       a light veil (top layer) keeps the dark headline/paragraph/buttons
+       legible, heavier on the left and easing off toward the right; a subtle
+       dark layer (bottom) grows from the middle to the right edge so the photo
+       reads with more presence/definition on that side without going too dark
+       or hurting text contrast. Mobile-only: desktop and tablet keep their own
+       treatment untouched. */
     .hero-media-col::after {
       content:'';
       position:absolute; inset:0;
-      background:linear-gradient(90deg, #F7F7F5 0%, #F7F7F5 82%, rgba(247,247,245,0.35) 100%);
+      background:
+        linear-gradient(90deg, rgba(247,247,245,0.88) 0%, rgba(247,247,245,0.78) 44%, rgba(247,247,245,0.55) 70%, rgba(247,247,245,0.38) 100%),
+        linear-gradient(90deg, rgba(18,16,14,0) 50%, rgba(18,16,14,0.10) 76%, rgba(18,16,14,0.22) 100%);
       pointer-events:none;
     }
     .hero-content { position:relative !important; z-index:2 !important; }
@@ -225,7 +231,7 @@
         <p style="font-family:'Dancing Script',cursive; font-size:clamp(30px,4.5vw,46px); color:#3A3A3A; margin-top:22px; line-height:1;">Seu melhor visual começa aqui.</p>
         <p style="font-family:'Barlow',sans-serif; font-size:16px; color:#5A5A5A; margin-top:20px; max-width:400px; line-height:1.6;">Experiência premium em cortes, barba e cuidados masculinos.</p>
         <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:32px;">
-          <a href="https://wa.me/5517997550146" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:#FFFFFF; font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; padding:15px 28px;">Agendar Horário <span>→</span></a>
+          <a href="https://wa.me/5517997550146?text=Quero%20agendar%20um%20hor%C3%A1rio%2C%20vim%20pelo%20site." target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:#FFFFFF; font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; padding:15px 28px;">Agendar Horário <span>→</span></a>
           <a href="#servicos" style="display:inline-flex; align-items:center; gap:10px; border:1px solid #141414; color:#141414; font-family:'Oswald',sans-serif; font-weight:500; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; padding:15px 28px;">Ver Serviços</a>
         </div>
         <div class="hero-dots" style="display:flex; gap:10px; margin-top:36px;">
@@ -412,7 +418,7 @@
             <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#C9A87D;"><span style="color:#D9A468; font-size:11px;">✓</span> 4 barbas completas</div>
             <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#C9A87D;"><span style="color:#D9A468; font-size:11px;">✓</span> Acabamento e toalha quente</div>
           </div>
-          <a href="https://wa.me/5517997550146" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; background:#D9A468; color:#1C1C1E;">Agendar</a>
+          <a href="https://wa.me/5517997550146?text=Vim%20pelo%20site%20e%20tenho%20interesse%20no%20pacote%20Bronze." target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; background:#D9A468; color:#1C1C1E;">Agendar</a>
         </div>
 
         <div class="pacote-card" style="flex:1 1 210px; min-width:200px; position:relative; background:#1A1508; border:1px solid #C9A227; padding:34px 26px 28px; display:flex; flex-direction:column;">
@@ -426,7 +432,7 @@
             <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#D8C48F;"><span style="color:#C9A227; font-size:11px;">✓</span> Sobrancelhas</div>
             <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#D8C48F;"><span style="color:#C9A227; font-size:11px;">✓</span> Brinde especial New House</div>
           </div>
-          <a href="https://wa.me/5517997550146" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; background:#C9A227; color:#1A1508;">Agendar</a>
+          <a href="https://wa.me/5517997550146?text=Vim%20pelo%20site%20e%20tenho%20interesse%20no%20pacote%20Ouro." target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; background:#C9A227; color:#1A1508;">Agendar</a>
         </div>
 
         <div class="pacote-card" style="flex:1 1 210px; min-width:200px; position:relative; background:#1A1A1C; border:1px solid #B8BCC2; opacity:0.88; padding:34px 26px 28px; display:flex; flex-direction:column;">
@@ -439,7 +445,7 @@
             <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#C7CAD0;"><span style="color:#B8BCC2; font-size:11px;">✓</span> Hidratação profunda</div>
             <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#C7CAD0;"><span style="color:#B8BCC2; font-size:11px;">✓</span> Finalização com produtos</div>
           </div>
-          <a href="https://wa.me/5517997550146" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; background:#B8BCC2; color:#1A1A1C;">Agendar</a>
+          <a href="https://wa.me/5517997550146?text=Vim%20pelo%20site%20e%20tenho%20interesse%20no%20pacote%20Prata." target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; background:#B8BCC2; color:#1A1A1C;">Agendar</a>
         </div>
 
       </div>
@@ -459,7 +465,7 @@
           <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> Técnica e padrão de qualidade New House</div>
           <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> Agilidade e praticidade</div>
         </div>
-        <a href="https://wa.me/5517997550146" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; border:1px solid #141414; color:#141414;">Agendar</a>
+        <a href="https://wa.me/5517997550146?text=Vim%20pelo%20site%20e%20tenho%20interesse%20no%20pacote%20Drive%20House." target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; border:1px solid #141414; color:#141414;">Agendar</a>
       </div>
 
       <div class="pacote-card" style="flex:1 1 210px; min-width:200px; background:#FFFFFF; border:1px solid #C9A227; padding:34px 26px 28px; display:flex; flex-direction:column;">
@@ -471,7 +477,7 @@
           <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> Técnica e padrão de qualidade New House</div>
           <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> Agilidade e praticidade</div>
         </div>
-        <a href="https://wa.me/5517997550146" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; border:1px solid #141414; color:#141414;">Agendar</a>
+        <a href="https://wa.me/5517997550146?text=Vim%20pelo%20site%20e%20tenho%20interesse%20no%20pacote%20Drive%204%20Cortes." target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; border:1px solid #141414; color:#141414;">Agendar</a>
       </div>
 
       <div class="pacote-card" style="flex:1 1 210px; min-width:200px; background:#FFFFFF; border:1px solid #C9A227; padding:34px 26px 28px; display:flex; flex-direction:column;">
@@ -483,7 +489,7 @@
           <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> Técnica e padrão de qualidade New House</div>
           <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> Agilidade e praticidade</div>
         </div>
-        <a href="https://wa.me/5517997550146" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; border:1px solid #141414; color:#141414;">Agendar</a>
+        <a href="https://wa.me/5517997550146?text=Vim%20pelo%20site%20e%20tenho%20interesse%20no%20pacote%20Drive%204%20Barbas." target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; border:1px solid #141414; color:#141414;">Agendar</a>
       </div>
     </div>
   </div>
