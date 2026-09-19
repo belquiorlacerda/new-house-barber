@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEW HOUSE BARBER</title>
+<noscript><style>.reveal{opacity:1 !important; transform:none !important;}</style></noscript>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Dancing+Script:wght@600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Dancing+Script:wght@600&display=swap"></noscript>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#FFFFFF; font-family:'Barlow',sans-serif; color:#141414; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; text-decoration:none; }
+  a:hover { color:#141414; }
+  ::selection { background:#141414; color:#FFFFFF; }
+  html, body { max-width:100%; overflow-x:hidden; }
+  @media (max-width:640px){
+    .hero-sec { min-height:auto !important; display:flex !important; flex-direction:column !important; }
+    .hero-badge { display:none !important; }
+    .hero-content { padding-bottom:24px !important; order:1; }
+    .hero-media-col { order:2; }
+    .hero-stats { position:static !important; order:3; }
+    .hero-stats > div { flex-direction:column !important; align-items:flex-start !important; padding:20px 32px !important; gap:18px !important; }
+    .header-topbar { display:none !important; }
+    .header-row { display:flex !important; justify-content:space-between !important; padding-left:16px !important; padding-right:16px !important; }
+    .header-nav { display:none !important; }
+    .header-logo-mobile { display:block !important; }
+    .svc-grid { grid-template-columns:repeat(2,1fr) !important; }
+    .svc-intro { flex-basis:100% !important; border-right:none !important; border-bottom:1px solid #E4E4E2; }
+    .pacote-row, .drive-row { justify-content:center !important; min-width:0 !important; }
+    .pacote-row .pacote-card, .drive-row .pacote-card { flex:1 1 calc(50% - 11px) !important; min-width:150px !important; }
+  }
+  @media (max-width:400px){
+    .header-brand { font-size:15px !important; letter-spacing:1px !important; }
+  }
+
+  @media (max-width:1024px) and (min-width:641px){
+    .header-row { gap:8px !important; padding-left:16px !important; padding-right:16px !important; }
+    .header-nav { gap:10px !important; font-size:10.5px !important; }
+    .header-brand { font-size:16px !important; }
+    .header-subtitle { font-size:8.5px !important; letter-spacing:2.5px !important; }
+    .header-phone-text { font-size:12px !important; }
+    .header-row > div:last-child { gap:10px !important; }
+  }
+  @media (max-width:900px){
+    .hero-media-col { position:relative !important; width:100% !important; height:340px !important; }
+    .hero-sec { display:flex !important; flex-direction:column !important; }
+    .hero-content { padding-bottom:40px !important; }
+  }
+  /* Tablet-only: the stacked hero (text, then full-width photo, then the
+     stats strip) was carrying desktop-sized top padding and a tall fixed
+     photo height, pushing the stats strip much further down than needed
+     on tablet widths. Trim it without touching mobile (≤640, which uses
+     the absolute-overlay hero, not this stacked one) or desktop (≥901,
+     side-by-side hero, untouched). */
+  @media (min-width:641px) and (max-width:900px){
+    .hero-content { padding-top:32px !important; padding-bottom:20px !important; order:2; }
+    .hero-media-col { height:280px !important; order:1; }
+    .hero-stats { position:static !important; order:3; }
+  }
+  @media (max-width:480px){
+    .pacote-card, .pacote-photo { min-width:0 !important; }
+    .pacote-row { min-width:0 !important; }
+  }
+  @media (max-width:900px){
+    .sobre-media { aspect-ratio:4/3.2 !important; }
+    .sobre-media, .sobre-text { min-width:0 !important; flex-basis:100% !important; }
+  }
+  @media (min-width:901px) and (max-width:1099px){
+    .hero-media-col { width:36% !important; }
+    .hero-text { max-width:340px !important; }
+  }
+  @media (min-width:1100px) and (max-width:1299px){
+    .hero-media-col { width:42% !important; }
+    .hero-text { max-width:420px !important; }
+  }
+  @media (min-width:1300px) and (max-width:1599px){
+    .hero-media-col { width:50% !important; }
+    .hero-text { max-width:500px !important; }
+  }
+  /* Desktop-only (mobile <=640px and tablet 641-900px hero media are untouched,
+     governed by the rules above/below): Card 1, 2 and 3 photos read as an
+     integrated background for the right side of the Hero instead of a photo
+     sitting in a boxed-in area. The media column's LEFT edge is placed exactly
+     1cm to the right of the text column (padding + hero-text's own max-width
+     for that breakpoint), and its right edge is pinned to the viewport edge,
+     so the photo always starts just past the text and fills the rest of the
+     width, regardless of viewport size. A mask gradient on the photo itself
+     - not a flat opacity - fades it in from nearly invisible near the text,
+     gaining color quickly, to its full original colors (no dimming) by the
+     halfway point and for the rest of the photo. */
+  @media (min-width:901px){
+    .hero-media-col { left:calc(max(0px, (100vw - 1180px) / 2) + 24px + 560px + 1cm) !important; right:0 !important; width:auto !important; }
+    .hero-media-col picture, .hero-media-col img {
+      display:block !important; width:100% !important; height:100% !important;
+    }
+    .hero-media-col img {
+      object-fit:cover !important;
+      -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
+      mask-image:linear-gradient(to right, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
+    }
+    [data-slide="0"] img { object-fit:contain !important; object-position:center top !important; }
+    [data-slide="1"] img { object-position:80% center !important; }
+    [data-slide="2"] img { object-position:55% center !important; }
+    .hero-media-legacy-fade { display:none !important; }
+  }
+  @media (min-width:901px) and (max-width:1099px){
+    .hero-media-col { left:calc(24px + 340px + 1cm) !important; }
+  }
+  @media (min-width:1100px) and (max-width:1299px){
+    .hero-media-col { left:calc(max(0px, (100vw - 1180px) / 2) + 24px + 420px + 1cm) !important; }
+  }
+  @media (min-width:1300px) and (max-width:1599px){
+    .hero-media-col { left:calc(max(0px, (100vw - 1180px) / 2) + 24px + 500px + 1cm) !important; }
+  }
+  .svc-grid { flex:1 1 480px; display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); }
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.is-visible { opacity:1; transform:translateY(0); }
+
+  /* ===== MOBILE-ONLY FIXES (<=640px). Desktop and tablet styles above are untouched. ===== */
+  @media (max-width:640px){
+    /* Hero: Card 2 (foto) and Card 3 (vídeo) become a faint background layer INSIDE
+       the hero itself, instead of a block stacked below the text. */
+    .hero-media-col {
+      position:absolute !important;
+      inset:0 !important;
+      width:100% !important;
+      height:100% !important;
+      z-index:0 !important;
+    }
+    .hero-media-col img, .hero-media-col video {
+      object-fit:contain !important;
+      object-position:center !important;
+      opacity:0.16 !important;
+    }
+    /* strong fade over the text column so headline/paragraph/buttons stay fully
+       legible; the media only shows through as a faint hint near the right
+       edge, well clear of where the headline/description/buttons sit */
+    .hero-media-col::after {
+      content:'';
+      position:absolute; inset:0;
+      background:linear-gradient(90deg, #F7F7F5 0%, #F7F7F5 82%, rgba(247,247,245,0.35) 100%);
+      pointer-events:none;
+    }
+    .hero-content { position:relative !important; z-index:2 !important; }
+    .hero-stats { position:relative !important; z-index:2 !important; }
+
+    /* Header: stack logo, brand name/subtitle and phone as one centered
+       vertical column so nothing sits off to a corner or overlaps. */
+    .header-row {
+      flex-direction:column !important;
+      flex-wrap:nowrap !important;
+      align-items:center !important;
+      justify-content:center !important;
+      row-gap:6px !important;
+      padding-top:18px !important;
+      padding-bottom:18px !important;
+    }
+    .header-row > div:last-child { flex:0 0 auto !important; justify-content:center !important; }
+
+    /* Nossos Pacotes: Bronze + Prata on the first row, Ouro alone (centered) below */
+    .pacote-row .pacote-card:nth-child(1) { order:1; }
+    .pacote-row .pacote-card:nth-child(2) { order:3; }
+    .pacote-row .pacote-card:nth-child(3) { order:2; }
+
+    /* Pacotes Drive-Thru: the two lower-priced cards on the first row, the
+       featured one alone (centered) below */
+    .drive-row .pacote-card:nth-child(1) { order:3; }
+    .drive-row .pacote-card:nth-child(2) { order:1; }
+    .drive-row .pacote-card:nth-child(3) { order:2; }
+
+    /* Keep 2-per-row at every mobile width, widening cards and trimming
+       internal spacing/price size so nothing overflows or gets cut off */
+    .pacote-row, .drive-row { gap:12px !important; }
+    .pacote-row .pacote-card, .drive-row .pacote-card { flex:1 1 calc(50% - 6px) !important; min-width:0 !important; padding:22px 14px 20px !important; }
+    #pacotes > div { padding:0 16px !important; }
+    .pacote-card [style*="font-size:32px"] { font-size:21px !important; margin:8px 0 16px !important; }
+
+    /* pacote-photo relies on stretching to match the card row's height; on mobile
+       it wraps onto its own line with nothing to stretch against and collapses
+       to ~0px tall, so give it an explicit height */
+    .pacote-photo { height:220px !important; }
+  }
+</style>
+</head>
+<body>
+<div style="background:#FFFFFF;">
+
+  <!-- ===== HEADER ===== -->
+  <header style="background:#FFFFFF; border-bottom:1px solid #E4E4E2;">
+
+    <div class="header-row" style="max-width:1180px; margin:0 auto; padding:16px 24px 18px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:20px;">
+      <img class="header-logo-mobile" src="assets/logo.jpg" alt="New House Barber" style="display:none; width:26px; height:26px; border-radius:50%; object-fit:cover;">
+      <nav class="header-nav" style="display:flex; align-items:center; gap:26px; font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:1.6px; text-transform:uppercase;">
+        <img src="assets/logo.jpg" alt="New House Barber" style="width:34px; height:34px; border-radius:50%; object-fit:cover; flex:0 0 auto;">
+        <a href="#" style="color:#141414; padding-bottom:4px; border-bottom:1.5px solid #141414;">Home</a>
+        <a href="#servicos" style="color:#6B6B6B;">Serviços</a>
+        <a href="#pacotes" style="color:#6B6B6B;">Preços</a>
+        <a href="#sobre" style="color:#6B6B6B;">Sobre</a>
+      </nav>
+      <a href="#" style="display:flex; flex-direction:column; align-items:center; gap:2px; text-align:center;">
+        <span class="header-brand" style="display:block; text-align:center; font-family:'Oswald',sans-serif; font-weight:600; font-size:19px; letter-spacing:2.5px; color:#141414; white-space:nowrap;">NEW HOUSE BARBER</span>
+        <span class="header-subtitle" style="font-family:'Barlow',sans-serif; font-size:9.5px; letter-spacing:6px; color:#8C8C8C; text-transform:uppercase;">Barbearia Masculina</span>
+      </a>
+      <div style="display:flex; justify-content:flex-end; align-items:center; gap:18px;">
+        <nav class="header-nav" style="display:flex; align-items:center; gap:26px; font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:1.6px; text-transform:uppercase;">
+          <a href="#contato" style="color:#6B6B6B;">Contato</a>
+        </nav>
+        <a href="tel:+5517997550146" style="display:inline-flex; align-items:center; gap:9px; color:#141414; font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; white-space:nowrap;">
+          <span>☎</span> <span class="header-phone-text">+55 17 99755-0146</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero-sec" style="position:relative; background:#F7F7F5; min-height:640px; overflow:hidden;">
+    <div class="hero-content" style="position:relative; max-width:1180px; margin:0 auto; padding:70px 24px 130px; width:100%;">
+      <div class="hero-text" style="max-width:560px;">
+        <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(48px,8vw,86px); line-height:0.94; letter-spacing:1px; text-transform:uppercase; color:#141414;">
+          Seu Estilo.<br><span style="color:#3A3A3A;">Sua Presença.</span>
+        </h1>
+        <p style="font-family:'Dancing Script',cursive; font-size:clamp(30px,4.5vw,46px); color:#3A3A3A; margin-top:22px; line-height:1;">Seu melhor visual começa aqui.</p>
+        <p style="font-family:'Barlow',sans-serif; font-size:16px; color:#5A5A5A; margin-top:20px; max-width:400px; line-height:1.6;">Experiência premium em cortes, barba e cuidados masculinos.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:32px;">
+          <a href="https://wa.me/5517997550146" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:#FFFFFF; font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; padding:15px 28px;">Agendar Horário <span>→</span></a>
+          <a href="#servicos" style="display:inline-flex; align-items:center; gap:10px; border:1px solid #141414; color:#141414; font-family:'Oswald',sans-serif; font-weight:500; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; padding:15px 28px;">Ver Serviços</a>
+        </div>
+        <div class="hero-dots" style="display:flex; gap:10px; margin-top:36px;">
+          <button type="button" class="hero-dot" data-dot="0" aria-label="Estado 1" style="width:16px; height:16px; padding:0; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span style="width:7px; height:7px; border-radius:50%; background:#141414; transform:scale(1.3); transition:all .3s ease; display:block;"></span></button>
+          <button type="button" class="hero-dot" data-dot="1" aria-label="Estado 2" style="width:16px; height:16px; padding:0; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span style="width:7px; height:7px; border-radius:50%; background:#D8D8D6; transform:scale(1); transition:all .3s ease; display:block;"></span></button>
+          <button type="button" class="hero-dot" data-dot="2" aria-label="Estado 3" style="width:16px; height:16px; padding:0; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span style="width:7px; height:7px; border-radius:50%; background:#D8D8D6; transform:scale(1); transition:all .3s ease; display:block;"></span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-media-col" style="position:absolute; top:0; right:0; bottom:0; width:56%; overflow:hidden;">
+      <div class="hero-slide" data-slide="0" style="position:absolute; inset:0; opacity:1; transition:opacity .5s ease; background:#F7F7F5; display:flex; align-items:center; justify-content:center;">
+        <picture>
+          <source media="(min-width:641px)" srcset="assets/hero-card1-desktop.jpg">
+          <img src="assets/hero-card1-mobile.jpg" alt="New House Barber" fetchpriority="high" decoding="async" style="width:100%; height:100%; object-fit:contain; object-position:center;">
+        </picture>
+      </div>
+      <div class="hero-slide" data-slide="1" style="position:absolute; inset:0; opacity:0; transition:opacity .5s ease; background:#F7F7F5; display:flex; align-items:center; justify-content:center;">
+        <picture>
+          <source media="(min-width:901px)" srcset="assets/hero-card2-wide.jpg">
+          <img src="assets/hero-card2.jpg" alt="New House Barber" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; object-position:center 22%;">
+        </picture>
+      </div>
+      <div class="hero-slide" data-slide="2" style="position:absolute; inset:0; opacity:0; transition:opacity .5s ease; display:flex; align-items:center; justify-content:center; background:#F7F7F5;">
+        <picture>
+          <source media="(min-width:901px)" srcset="assets/hero-card3-wide.jpg">
+          <img src="assets/hero-card3.jpg" alt="New House Barber" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:contain; object-position:center;">
+        </picture>
+      </div>
+      <div class="hero-media-legacy-fade" style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(247,247,245,1) 0%, rgba(247,247,245,0) 38%);"></div>
+    </div>
+
+    <script>
+      (function(){
+        var slides = document.querySelectorAll('.hero-slide');
+        var dots = document.querySelectorAll('.hero-dot');
+        var current = 0, timer;
+        function show(i){
+          current = i;
+          slides.forEach(function(s){ s.style.opacity = (+s.dataset.slide === i) ? '1' : '0'; });
+          dots.forEach(function(d){
+            var span = d.querySelector('span');
+            var active = +d.dataset.dot === i;
+            span.style.background = active ? '#141414' : '#D8D8D6';
+            span.style.transform = active ? 'scale(1.3)' : 'scale(1)';
+          });
+        }
+        function next(){ show((current+1) % slides.length); }
+        function restart(){ clearInterval(timer); timer = setInterval(next, 5000); }
+        dots.forEach(function(d){
+          d.addEventListener('click', function(){ show(+d.dataset.dot); restart(); });
+        });
+        restart();
+      })();
+    </script>
+
+
+    <div class="hero-stats" style="position:absolute; left:0; right:0; bottom:0; border-top:1px solid #E4E4E2; background:#FFFFFF;">
+      <div style="max-width:1180px; margin:0 auto; padding:18px 24px; display:flex; flex-wrap:wrap; justify-content:center; gap:38px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="color:#141414; font-size:22px;">◈</span>
+          <div><div style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:1.2px; text-transform:uppercase; color:#141414;">Barbeiros Especializados</div><div style="font-family:'Barlow',sans-serif; font-size:12px; color:#8C8C8C;">Profissionais certificados</div></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="color:#141414; font-size:22px;">◈</span>
+          <div><div style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:1.2px; text-transform:uppercase; color:#141414;">Produtos Premium</div><div style="font-family:'Barlow',sans-serif; font-size:12px; color:#8C8C8C;">Marcas de alta qualidade</div></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="color:#141414; font-size:22px;">◈</span>
+          <div><div style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:1.2px; text-transform:uppercase; color:#141414;">Ambiente Limpo e Seguro</div><div style="font-family:'Barlow',sans-serif; font-size:12px; color:#8C8C8C;">Higiene garantida</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVIÇOS ===== -->
+  <section id="servicos" class="reveal" style="max-width:1180px; margin:0 auto; padding:28px 24px 0;">
+    <div style="background:#F7F7F5; border:1px solid #E4E4E2; display:flex; flex-wrap:wrap;">
+      <div class="svc-intro" style="flex:0 0 210px; min-width:190px; padding:30px 26px; border-right:1px solid #E4E4E2;">
+        <h3 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:26px; line-height:1.05; letter-spacing:1px; text-transform:uppercase; color:#141414;">Nossos<br>Serviços</h3>
+        <p style="font-family:'Barlow',sans-serif; font-size:12.5px; color:#6B6B6B; margin-top:12px; line-height:1.6;">Explore toda a nossa gama de serviços de grooming premium.</p>
+        <a href="https://wa.me/5517997550146?text=%F0%9F%92%88%20Quero%20conhecer%20os%20servi%C3%A7os%20da%20New%20House%20Barber." target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#141414; margin-top:20px;">Ver todos os serviços <span>→</span></a>
+      </div>
+
+      <div class="svc-grid">
+      <div style="flex:1 1 0; min-width:145px; padding:30px 20px; text-align:center; position:relative;">
+        <div style="position:absolute; top:30px; left:0; bottom:30px; width:2px; background:linear-gradient(to bottom,#C9A227,#A9812F);"></div>
+        <div style="color:#141414; display:flex; justify-content:center; margin-bottom:16px;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="6" r="2.4" stroke="currentColor" stroke-width="1.3"/><circle cx="6" cy="18" r="2.4" stroke="currentColor" stroke-width="1.3"/><line x1="7.8" y1="7.6" x2="20" y2="18" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="7.8" y1="16.4" x2="20" y2="6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:1px; text-transform:uppercase; color:#141414; line-height:1.25;">CORTE NEW HOUSE</div>
+        <div style="font-family:'Barlow',sans-serif; font-size:11.5px; color:#6B6B6B; margin-top:9px; line-height:1.5;">Corte personalizado com lavagem, hidratação profunda com produtos premium e finalização.</div>
+        <div style="display:inline-block; margin-top:12px; font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:#A9812F; background:#F1E7CE; padding:4px 10px;">Premium</div>
+        <div style="position:absolute; top:30px; right:0; bottom:30px; width:2px; background:linear-gradient(to bottom,#C9A227,#A9812F);"></div>
+      </div>
+
+      <div style="flex:1 1 0; min-width:145px; padding:30px 20px; text-align:center; position:relative;">
+        <div style="color:#141414; display:flex; justify-content:center; margin-bottom:16px;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="11" height="5" rx="1" stroke="currentColor" stroke-width="1.3"/><line x1="14" y1="8.5" x2="21" y2="15.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="20.5" cy="16.5" r="1.6" stroke="currentColor" stroke-width="1.3"/></svg>
+        </div>
+        <div style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:1px; text-transform:uppercase; color:#141414; line-height:1.25;">BARBA NEW HOUSE</div>
+        <div style="font-family:'Barlow',sans-serif; font-size:11.5px; color:#6B6B6B; margin-top:9px; line-height:1.5;">Modelagem, alinhamento, acabamento, corte, toalha quente e tratamento.</div>
+        <div style="display:inline-block; margin-top:12px; font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:#A9812F; background:#F1E7CE; padding:4px 10px;">Premium</div>
+        <div style="position:absolute; top:30px; right:0; bottom:30px; width:2px; background:linear-gradient(to bottom,#C9A227,#A9812F);"></div>
+      </div>
+
+      <div style="flex:1 1 0; min-width:145px; padding:30px 20px; text-align:center; position:relative;">
+        <div style="color:#141414; display:flex; justify-content:center; margin-bottom:16px;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3c3 4.5 5 7 5 9.5A5 5 0 0 1 7 12.5C7 10 9 7.5 12 3z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        </div>
+        <div style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:1px; text-transform:uppercase; color:#141414; line-height:1.25;">Cavanhaque</div>
+        <div style="font-family:'Barlow',sans-serif; font-size:11.5px; color:#6B6B6B; margin-top:9px; line-height:1.5;">Modelagem, alinhamento e acabamento com toalha quente.</div>
+        <div style="display:inline-block; margin-top:12px; font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:#A9812F; background:#F1E7CE; padding:4px 10px;">Premium</div>
+        <div style="position:absolute; top:30px; right:0; bottom:30px; width:2px; background:linear-gradient(to bottom,#C9A227,#A9812F);"></div>
+      </div>
+
+      <div style="flex:1 1 0; min-width:145px; padding:30px 20px; text-align:center;">
+        <div style="color:#141414; display:flex; justify-content:center; margin-bottom:16px;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 4v3M12 4l-2 2M12 4l2 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M6 13c0-3 12-3 12 0v1a6 6 0 0 1-12 0z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        </div>
+        <div style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:1px; text-transform:uppercase; color:#141414; line-height:1.25;">Barboterapia</div>
+        <div style="font-family:'Barlow',sans-serif; font-size:11.5px; color:#6B6B6B; margin-top:9px; line-height:1.5;">Modelagem da barba, limpeza de pele, toalha quente, massageador, massagem facial e relaxamento.</div>
+        <div style="display:inline-block; margin-top:12px; font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:#A9812F; background:#F1E7CE; padding:4px 10px;">Premium</div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SOBRE ===== -->
+  <section id="sobre" class="reveal" style="background:#F7F7F5;">
+  <div style="max-width:1180px; margin:0 auto; padding:64px 24px; display:flex; flex-wrap:wrap; gap:44px; align-items:center;">
+    <div class="sobre-text" style="flex:1.15 1 440px; min-width:300px;">
+      <div style="font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:#8C8C8C; margin-bottom:14px;">— Sobre</div>
+      <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:clamp(30px,4vw,42px); line-height:1.05; letter-spacing:0.5px; text-transform:uppercase; color:#141414;">Mais que uma barbearia,<br><span style="color:#3A3A3A;">uma experiência.</span></h2>
+      <p style="font-family:'Barlow',sans-serif; font-size:15px; color:#5A5A5A; margin-top:18px; line-height:1.7; max-width:460px;">Cada detalhe foi pensado para oferecer um momento de cuidado, estilo e confiança. Do atendimento ao acabamento final, tudo é feito para você sair daqui se sentindo melhor.</p>
+      <div style="font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#8C8C8C; margin-top:28px; margin-bottom:14px;">Por que nos escolher?</div>
+
+      <div style="display:flex; align-items:center; gap:12px; padding:7px 0;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#141414" stroke-width="1.4"/><path d="M8 12.2l2.6 2.6L16 9" stroke="#141414" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span style="font-family:'Barlow',sans-serif; font-size:14px; color:#4A4A4A;">Barbeiros experientes</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px; padding:7px 0;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#141414" stroke-width="1.4"/><path d="M8 12.2l2.6 2.6L16 9" stroke="#141414" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span style="font-family:'Barlow',sans-serif; font-size:14px; color:#4A4A4A;">Atendimento personalizado</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px; padding:7px 0;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#141414" stroke-width="1.4"/><path d="M8 12.2l2.6 2.6L16 9" stroke="#141414" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span style="font-family:'Barlow',sans-serif; font-size:14px; color:#4A4A4A;">Produtos de alta qualidade</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px; padding:7px 0;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#141414" stroke-width="1.4"/><path d="M8 12.2l2.6 2.6L16 9" stroke="#141414" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span style="font-family:'Barlow',sans-serif; font-size:14px; color:#4A4A4A;">Ambiente sofisticado</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px; padding:7px 0;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#141414" stroke-width="1.4"/><path d="M8 12.2l2.6 2.6L16 9" stroke="#141414" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span style="font-family:'Barlow',sans-serif; font-size:14px; color:#4A4A4A;">Experiência premium</span>
+      </div>
+
+    </div>
+
+    <div class="sobre-media" style="flex:1 1 440px; min-width:300px; position:relative; aspect-ratio:4/3.6; overflow:hidden;">
+      <div style="position:absolute; inset:0; background:#EDEDEB url('assets/interior.jpg') center/cover no-repeat;"></div>
+    </div>
+  </div>
+  </section>
+
+  <!-- ===== PACOTES ===== -->
+  <section id="pacotes" class="reveal" style="background:#F2F2F0; padding:64px 0 66px;">
+  <div style="max-width:1180px; margin:0 auto; padding:0 24px;">
+    <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:38px;">
+      <span style="height:1px; width:60px; background:#DADAD8;"></span>
+      <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:22px; letter-spacing:3px; text-transform:uppercase; color:#141414;">Nossos Pacotes</h2>
+      <span style="height:1px; width:60px; background:#DADAD8;"></span>
+    </div>
+    <div style="display:flex; justify-content:center;">
+      <div class="pacote-row" style="width:100%; max-width:820px; display:flex; flex-wrap:wrap; gap:22px; justify-content:center;">
+
+        <div class="pacote-card" style="flex:1 1 210px; min-width:200px; position:relative; background:#1C1C1E; border:1px solid #8A6A3D; opacity:0.88; padding:34px 26px 28px; display:flex; flex-direction:column;">
+          <div style="font-family:'Oswald',sans-serif; font-size:15px; letter-spacing:2px; text-transform:uppercase; color:#D9A468; text-align:center;">Pacote Bronze</div>
+          <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:32px; color:#D9A468; text-align:center; margin:10px 0 20px;">R$ 370,00</div>
+          <div style="height:1px; background:rgba(217,164,104,.3); margin-bottom:18px;"></div>
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#C9A87D;"><span style="color:#D9A468; font-size:11px;">✓</span> 4 cortes com lavagem e hidratação</div>
+            <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#C9A87D;"><span style="color:#D9A468; font-size:11px;">✓</span> 4 barbas completas</div>
+            <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#C9A87D;"><span style="color:#D9A468; font-size:11px;">✓</span> Acabamento e toalha quente</div>
+          </div>
+          <a href="https://wa.me/5517997550146" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; background:#D9A468; color:#1C1C1E;">Agendar</a>
+        </div>
+
+        <div class="pacote-card" style="flex:1 1 210px; min-width:200px; position:relative; background:#1A1508; border:1px solid #C9A227; padding:34px 26px 28px; display:flex; flex-direction:column;">
+          <div style="position:absolute; top:0; left:50%; transform:translate(-50%,-50%); background:#C9A227; color:#1A1508; font-family:'Oswald',sans-serif; font-size:10px; font-weight:600; letter-spacing:1.6px; text-transform:uppercase; padding:5px 14px;">Mais Popular</div>
+          <div style="font-family:'Oswald',sans-serif; font-size:15px; letter-spacing:2px; text-transform:uppercase; color:#E9CE83; text-align:center;">Pacote Ouro</div>
+          <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:32px; color:#E9CE83; text-align:center; margin:10px 0 20px;">R$ 600,00</div>
+          <div style="height:1px; background:rgba(201,162,39,.35); margin-bottom:18px;"></div>
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#D8C48F;"><span style="color:#C9A227; font-size:11px;">✓</span> 4 cortes com lavagem e hidratação</div>
+            <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#D8C48F;"><span style="color:#C9A227; font-size:11px;">✓</span> 4 barboterapias</div>
+            <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#D8C48F;"><span style="color:#C9A227; font-size:11px;">✓</span> Sobrancelhas</div>
+            <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#D8C48F;"><span style="color:#C9A227; font-size:11px;">✓</span> Brinde especial New House</div>
+          </div>
+          <a href="https://wa.me/5517997550146" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; background:#C9A227; color:#1A1508;">Agendar</a>
+        </div>
+
+        <div class="pacote-card" style="flex:1 1 210px; min-width:200px; position:relative; background:#1A1A1C; border:1px solid #B8BCC2; opacity:0.88; padding:34px 26px 28px; display:flex; flex-direction:column;">
+          <div style="font-family:'Oswald',sans-serif; font-size:15px; letter-spacing:2px; text-transform:uppercase; color:#E4E7EC; text-align:center;">Pacote Prata</div>
+          <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:32px; color:#E4E7EC; text-align:center; margin:10px 0 20px;">R$ 220,00</div>
+          <div style="height:1px; background:rgba(184,188,194,.3); margin-bottom:18px;"></div>
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#C7CAD0;"><span style="color:#B8BCC2; font-size:11px;">✓</span> 4 cortes de cabelo</div>
+            <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#C7CAD0;"><span style="color:#B8BCC2; font-size:11px;">✓</span> Lavagem no lavatório</div>
+            <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#C7CAD0;"><span style="color:#B8BCC2; font-size:11px;">✓</span> Hidratação profunda</div>
+            <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#C7CAD0;"><span style="color:#B8BCC2; font-size:11px;">✓</span> Finalização com produtos</div>
+          </div>
+          <a href="https://wa.me/5517997550146" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; background:#B8BCC2; color:#1A1A1C;">Agendar</a>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:baseline; justify-content:center; gap:12px; margin:56px 0 34px;">
+      <h3 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:18px; letter-spacing:2.5px; text-transform:uppercase; color:#141414;">Pacotes Drive-Thru</h3>
+    </div>
+    <div class="drive-row" style="display:flex; flex-wrap:wrap; gap:22px;">
+      <div class="pacote-card" style="flex:1 1 210px; min-width:200px; background:#FFFFFF; border:1px solid #C9A227; padding:34px 26px 28px; display:flex; flex-direction:column;">
+        <div style="font-family:'Oswald',sans-serif; font-size:15px; letter-spacing:2px; text-transform:uppercase; color:#141414; text-align:center;">DRIVE HOUSE</div>
+        <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:32px; color:#141414; text-align:center; margin:10px 0 20px;">R$ 299,90</div>
+        <div style="height:1px; background:#EDEDEB; margin-bottom:18px;"></div>
+        <div style="flex:1;">
+          <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> 4 cortes de cabelo Drive-Thru</div>
+          <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> 4 barbas Drive-Thru</div>
+          <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> Técnica e padrão de qualidade New House</div>
+          <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> Agilidade e praticidade</div>
+        </div>
+        <a href="https://wa.me/5517997550146" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; border:1px solid #141414; color:#141414;">Agendar</a>
+      </div>
+
+      <div class="pacote-card" style="flex:1 1 210px; min-width:200px; background:#FFFFFF; border:1px solid #C9A227; padding:34px 26px 28px; display:flex; flex-direction:column;">
+        <div style="font-family:'Oswald',sans-serif; font-size:15px; letter-spacing:2px; text-transform:uppercase; color:#141414; text-align:center;">DRIVE 4 CORTES</div>
+        <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:32px; color:#141414; text-align:center; margin:10px 0 20px;">R$ 169,90</div>
+        <div style="height:1px; background:#EDEDEB; margin-bottom:18px;"></div>
+        <div style="flex:1;">
+          <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> 4 cortes de cabelo Drive-Thru</div>
+          <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> Técnica e padrão de qualidade New House</div>
+          <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> Agilidade e praticidade</div>
+        </div>
+        <a href="https://wa.me/5517997550146" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; border:1px solid #141414; color:#141414;">Agendar</a>
+      </div>
+
+      <div class="pacote-card" style="flex:1 1 210px; min-width:200px; background:#FFFFFF; border:1px solid #C9A227; padding:34px 26px 28px; display:flex; flex-direction:column;">
+        <div style="font-family:'Oswald',sans-serif; font-size:15px; letter-spacing:2px; text-transform:uppercase; color:#141414; text-align:center;">DRIVE 4 BARBAS</div>
+        <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:32px; color:#141414; text-align:center; margin:10px 0 20px;">R$ 139,90</div>
+        <div style="height:1px; background:#EDEDEB; margin-bottom:18px;"></div>
+        <div style="flex:1;">
+          <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> 4 barbas Drive-Thru</div>
+          <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> Técnica e padrão de qualidade New House</div>
+          <div style="display:flex; align-items:center; gap:9px; padding:5px 0; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;"><span style="color:#141414; font-size:11px;">✓</span> Agilidade e praticidade</div>
+        </div>
+        <a href="https://wa.me/5517997550146" target="_blank" rel="noopener" style="display:block; text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; padding:11px; border:1px solid #141414; color:#141414;">Agendar</a>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="contato" class="reveal" style="background:#F7F7F5; border-top:1px solid #E4E4E2; padding:56px 24px 26px;">
+    <div style="max-width:1180px; margin:0 auto; display:flex; flex-wrap:wrap; gap:48px;">
+      <div style="flex:1.6 1 300px; min-width:260px;">
+        <div style="font-family:'Oswald',sans-serif; font-weight:600; font-size:17px; letter-spacing:2px; color:#141414;">
+          <span>NEW HOUSE BARBER</span>
+        </div>
+        <p style="font-family:'Barlow',sans-serif; font-size:13px; color:#6B6B6B; margin-top:16px; line-height:1.7; max-width:280px;">Qualidade, estilo e cuidado em cada atendimento.<br />Mais do que um corte, uma experiência.</p>
+        <a href="https://www.instagram.com/barbernewhouse/" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; margin-top:20px; font-family:'Barlow',sans-serif; font-size:13px; color:#4A4A4A;">
+          <span style="width:34px; height:34px; border:1px solid #DADAD8; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="#141414" stroke="none"/></svg>
+          </span>
+          @barbernewhouse
+        </a>
+      </div>
+
+      <div style="flex:1 1 200px; min-width:180px;">
+        <div style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#141414; margin-bottom:16px;">Contato</div>
+        <div style="font-family:'Barlow',sans-serif; font-size:13px; color:#5A5A5A; line-height:1.6; display:flex; flex-direction:column; gap:12px;">
+          <a href="tel:+5517997550146" style="display:flex; gap:9px;"><span style="color:#141414;">☎</span> +55 17 99755-0146</a>
+          <span style="display:flex; gap:9px;"><span style="color:#141414;">◍</span> Rua Oito, 430<br>Santa Fé do Sul - SP<br>15775-000, Brasil</span>
+        </div>
+      </div>
+
+      <div style="flex:1 1 200px; min-width:180px;">
+        <div style="font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#141414; margin-bottom:16px;">Horário de Funcionamento</div>
+        <div style="font-family:'Barlow',sans-serif; font-size:13px; color:#5A5A5A; line-height:1.6; display:flex; flex-direction:column; gap:10px;">
+          <span style="display:flex; gap:9px;"><span style="color:#141414;">◷</span> Terça a sexta: 09:00 às 19:00</span>
+          <span style="display:flex; gap:9px;"><span style="color:#141414;">◷</span> Sábado: 09:00 às 15:00</span>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1180px; margin:34px auto 0; border-top:1px solid #E4E4E2; padding-top:20px; text-align:center; font-family:'Barlow',sans-serif; font-size:12px; letter-spacing:0.5px; color:#8C8C8C;">
+      © 2026 NEW HOUSE BARBER. Todos os direitos reservados.
+    </div>
+  </footer>
+
+<script>
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    function revealAll(){ els.forEach(function(el){ el.classList.add('is-visible'); }); }
+    if (typeof IntersectionObserver !== 'function') { revealAll(); return; }
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('is-visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold:0.12, rootMargin:'0px 0px -60px 0px' });
+    els.forEach(function(el){ obs.observe(el); });
+    // Safety net: some in-app/preview browsers run script but never fire
+    // intersection callbacks reliably, which would otherwise leave content
+    // stuck invisible forever. Force everything visible after a short delay.
+    setTimeout(revealAll, 2000);
+  })();
+</script>
+<script>
+  (function(){
+    // Smooth-scroll for in-page menu/CTA links, animated manually with
+    // requestAnimationFrame instead of the browser's native
+    // `scroll-behavior:smooth`. The native version applies to (and can
+    // interfere with) ALL scrolling, including the user's own mouse-wheel and
+    // touch input, which is what was causing the page to freeze up. This
+    // version only ever touches the scroll position for these specific
+    // link clicks, so normal user scrolling is always 100% native and free.
+    function easeInOutQuad(t){ return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2) / 2; }
+    function smoothScrollTo(targetY, duration){
+      var startY = window.pageYOffset;
+      var diff = targetY - startY;
+      var startTime = null;
+      function step(timestamp){
+        if (startTime === null) startTime = timestamp;
+        var progress = Math.min((timestamp - startTime) / duration, 1);
+        window.scrollTo(0, startY + diff * easeInOutQuad(progress));
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(function(link){
+      var href = link.getAttribute('href');
+      if (!href || href.length < 2) return;
+      var target;
+      try { target = document.querySelector(href); } catch (err) { return; }
+      if (!target) return;
+      link.addEventListener('click', function(e){
+        e.preventDefault();
+        var y = target.getBoundingClientRect().top + window.pageYOffset;
+        smoothScrollTo(y, 600);
+      });
+    });
+  })();
+</script>
+
+</div>
+</body>
+</html>
