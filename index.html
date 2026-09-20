@@ -181,7 +181,7 @@
     .hero-media-col img, .hero-media-col video {
       object-fit:contain !important;
       object-position:center !important;
-      opacity:0.5 !important;
+      opacity:0.85 !important;
     }
     /* Mobile photo treatment: two stacked overlays give a directional look —
        a light veil (top layer) keeps the dark headline/paragraph/buttons
@@ -209,6 +209,11 @@
       inset:0;
       background:rgba(0,0,0,0.32);
       pointer-events:none;
+    }
+    /* Card 1 (os dois barbeiros) recebe um escurecimento um pouco maior, para
+       dar mais contraste e destacar as duas pessoas. */
+    .hero-slide[data-slide="0"]::after {
+      background:rgba(0,0,0,0.44);
     }
     .hero-content { position:relative !important; z-index:2 !important; }
     .hero-stats { position:relative !important; z-index:2 !important; }
