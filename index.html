@@ -198,6 +198,18 @@
         linear-gradient(90deg, rgba(18,16,14,0) 50%, rgba(18,16,14,0.10) 76%, rgba(18,16,14,0.22) 100%);
       pointer-events:none;
     }
+    /* Uniform dark overlay on each of the 3 hero cards (mobile only): a
+       translucent black layer painted directly over each slide's image so the
+       photos read darker and more contrasted. It sits above the images but
+       below the headline/paragraph/buttons (z-index:2) and never blocks clicks.
+       Mobile-only — desktop and tablet keep their own image treatment. */
+    .hero-slide::after {
+      content:'';
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.32);
+      pointer-events:none;
+    }
     .hero-content { position:relative !important; z-index:2 !important; }
     .hero-stats { position:relative !important; z-index:2 !important; }
 
