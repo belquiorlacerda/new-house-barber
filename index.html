@@ -210,10 +210,15 @@
       background:rgba(0,0,0,0.32);
       pointer-events:none;
     }
-    /* Card 1 (os dois barbeiros) recebe um escurecimento um pouco maior, para
-       dar mais contraste e destacar as duas pessoas. */
+    /* Card 1 (os dois barbeiros): renderizado ACIMA das camadas brancas
+       compartilhadas (legacy-fade + veu da media-col) via z-index, e com um
+       veu proprio bem mais leve. Assim as DUAS pessoas ficam visiveis — em
+       especial a da esquerda, que antes sumia sob o excesso de branco — sem
+       lavar a imagem e mantendo titulo/subtitulo/botoes legiveis. Slides 2 e 3
+       continuam usando o tratamento compartilhado, inalterados. */
+    .hero-slide[data-slide="0"] { z-index:1 !important; }
     .hero-slide[data-slide="0"]::after {
-      background:rgba(0,0,0,0.44);
+      background:linear-gradient(90deg, rgba(247,247,245,0.68) 0%, rgba(247,247,245,0.56) 45%, rgba(247,247,245,0.4) 72%, rgba(247,247,245,0.26) 100%);
     }
     .hero-content { position:relative !important; z-index:2 !important; }
     .hero-stats { position:relative !important; z-index:2 !important; }
