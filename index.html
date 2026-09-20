@@ -44,6 +44,18 @@
     .header-phone-text { font-size:11px !important; }
     .header-row > div:last-child { gap:8px !important; }
   }
+  /* Desktop-only (>=1025px): the left column (logo+nav, now 5 links) has more
+     content than the right column (Contato+phone), so with a plain "1fr auto
+     1fr" grid the left track was forced wider than the right to fit its own
+     min-content, pushing the centered brand block off-true-center. Using
+     minmax(0,1fr) removes that content-driven floor, so both side columns
+     split the leftover space exactly evenly: the brand sits truly centered,
+     and Contato/phone (already right-aligned within their column) land
+     further out toward the actual right corner. Mobile and tablet, which use
+     their own layouts above, are untouched. */
+  @media (min-width:1025px){
+    .header-row { grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) !important; }
+  }
   @media (max-width:900px){
     .hero-media-col { position:relative !important; width:100% !important; height:340px !important; }
     .hero-sec { display:flex !important; flex-direction:column !important; }
