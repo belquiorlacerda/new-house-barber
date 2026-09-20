@@ -148,6 +148,15 @@
     [data-slide="0"] img { object-fit:contain !important; object-position:center top !important; }
     [data-slide="1"] img { object-position:80% center !important; }
     [data-slide="2"] img { object-position:55% center !important; }
+    /* Cards 2 e 3 (fotos escuras): a mascara compartilhada comeca em 8% de
+       opacidade na borda esquerda, o que criava um degrau/risco vertical
+       visivel na transicao (imperceptivel no card 1, que e claro). Aqui a
+       mascara comeca em 0 (totalmente transparente), suavizando a transicao e
+       eliminando a faixa. Card 1 permanece com a mascara compartilhada. */
+    [data-slide="1"] img, [data-slide="2"] img {
+      -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
+      mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
+    }
     .hero-media-legacy-fade { display:none !important; }
   }
   @media (min-width:901px) and (max-width:1099px){
