@@ -184,6 +184,19 @@
   .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
   .reveal.is-visible { opacity:1; transform:translateY(0); }
 
+  /* Carrossel da seção Sobre: setas discretas sobre a foto, iguais em
+     mobile/tablet/desktop (a área da foto já se adapta via aspect-ratio). */
+  .sobre-nav-arrow {
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:32px; height:32px; border-radius:50%; border:none; padding:0;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(20,20,20,0.4); color:#FFFFFF; cursor:pointer;
+    z-index:3; transition:background .25s ease;
+  }
+  .sobre-nav-arrow:hover { background:rgba(20,20,20,0.65); }
+  .sobre-nav-prev { left:12px; }
+  .sobre-nav-next { right:12px; }
+
   /* Mobile-only header nav: hidden by default so desktop/tablet are untouched;
      turned on inside the <=640px block below. */
   .mobile-nav { display:none; }
@@ -523,11 +536,44 @@
 
     </div>
 
-    <div class="sobre-media" style="flex:1 1 440px; min-width:300px; position:relative; aspect-ratio:4/3.6; overflow:hidden;">
-      <div style="position:absolute; inset:0; background:#EDEDEB url('assets/interior.jpg') center/cover no-repeat;"></div>
+    <div class="sobre-media" style="flex:1 1 440px; min-width:300px; position:relative; aspect-ratio:4/3.6; overflow:hidden; background:#EDEDEB;">
+      <div class="sobre-slide" data-slide="0" style="position:absolute; inset:0; opacity:1; transition:opacity 1s ease;">
+        <img src="assets/sobre-1.webp" alt="Ambiente da New House Barber" style="display:block; width:100%; height:100%; object-fit:cover; object-position:center;">
+      </div>
+      <div class="sobre-slide" data-slide="1" style="position:absolute; inset:0; opacity:0; transition:opacity 1s ease;">
+        <img src="assets/sobre-2.webp" alt="Ambiente da New House Barber" style="display:block; width:100%; height:100%; object-fit:cover; object-position:center;">
+      </div>
+      <div class="sobre-slide" data-slide="2" style="position:absolute; inset:0; opacity:0; transition:opacity 1s ease;">
+        <img src="assets/sobre-3.webp" alt="Ambiente da New House Barber" style="display:block; width:100%; height:100%; object-fit:cover; object-position:center;">
+      </div>
+      <button type="button" class="sobre-nav-arrow sobre-nav-prev" aria-label="Foto anterior">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="sobre-nav-arrow sobre-nav-next" aria-label="Próxima foto">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
   </div>
   </section>
+
+  <script>
+    (function(){
+      var slides = document.querySelectorAll('.sobre-slide');
+      var current = 0, timer;
+      function show(i){
+        current = (i + slides.length) % slides.length;
+        slides.forEach(function(s){ s.style.opacity = (+s.dataset.slide === current) ? '1' : '0'; });
+      }
+      function next(){ show(current + 1); }
+      function prev(){ show(current - 1); }
+      function restart(){ clearInterval(timer); timer = setInterval(next, 3000); }
+      var prevBtn = document.querySelector('.sobre-nav-prev');
+      var nextBtn = document.querySelector('.sobre-nav-next');
+      if (prevBtn) prevBtn.addEventListener('click', function(){ prev(); restart(); });
+      if (nextBtn) nextBtn.addEventListener('click', function(){ next(); restart(); });
+      restart();
+    })();
+  </script>
 
   <!-- ===== PACOTES ===== -->
   <section id="pacotes" class="reveal" style="background:#F2F2F0; padding:64px 0 66px;">
