@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "barbearia-do-rafa",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "C:\\Users\\User\\AppData\\Local\\Temp\\claude\\C--Users-User-Documents-claude\\8d16b151-28ee-4cb1-a2b9-de2b698efce8\\scratchpad\\static-server.ps1", "-Root", "C:\\Users\\User\\Desktop\\BARBEARIA DO RAFA", "-Port", "8792"],
+      "port": 8792
+    }
+  ]
+}
