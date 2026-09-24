@@ -157,7 +157,9 @@
       -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
       mask-image:linear-gradient(to right, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
     }
-    [data-slide="0"] img { object-fit:contain !important; object-position:center top !important; }
+    /* Card 1 (foto horizontal 16:9): "cover" preenche o card inteiro sem
+       deformar; o barbeiro fica centralizado e so a parede lateral e cortada. */
+    [data-slide="0"] img { object-fit:cover !important; object-position:center center !important; }
     [data-slide="1"] img { object-position:80% center !important; }
     [data-slide="2"] img { object-position:55% center !important; }
     /* Cards 2 e 3 (fotos escuras): a mascara compartilhada comeca em 8% de
@@ -376,8 +378,8 @@
     <div class="hero-media-col" style="position:absolute; top:0; right:0; bottom:0; width:56%; overflow:hidden;">
       <div class="hero-slide" data-slide="0" style="position:absolute; inset:0; opacity:1; transition:opacity .5s ease; background:#F7F7F5; display:flex; align-items:center; justify-content:center;">
         <picture>
-          <source media="(min-width:641px)" srcset="assets/hero-card1-new.webp">
-          <img src="assets/hero-card1-new.webp" alt="New House Barber" fetchpriority="high" decoding="async" style="width:100%; height:100%; object-fit:contain; object-position:center;">
+          <source media="(min-width:901px)" srcset="assets/hero-card1-desktop.webp">
+          <img src="assets/hero-card1-mobile.webp" alt="New House Barber" fetchpriority="high" decoding="async" style="width:100%; height:100%; object-fit:contain; object-position:center;">
         </picture>
       </div>
       <div class="hero-slide" data-slide="1" style="position:absolute; inset:0; opacity:0; transition:opacity .5s ease; background:#F7F7F5; display:flex; align-items:center; justify-content:center;">
