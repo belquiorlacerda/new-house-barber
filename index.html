@@ -243,6 +243,23 @@
     .hero-slide[data-slide="0"]::after {
       background:linear-gradient(90deg, rgba(247,247,245,0.68) 0%, rgba(247,247,245,0.56) 45%, rgba(247,247,245,0.4) 72%, rgba(247,247,245,0.26) 100%);
     }
+    /* Card 1 (foto horizontal do ambiente): o <picture>/<img> ficavam com
+       display:inline e sem altura definida, entao a caixa da imagem assumia
+       a altura natural da propria foto (regra width:100% + altura conforme a
+       proporcao) em vez de preencher o card. Com uma foto mais larga que alta
+       isso sobrava uma faixa bem fina, com muito espaco em branco acima/abaixo
+       — diferente dos Cards 2 e 3, que usam fotos mais verticais e por isso
+       disfarçavam o mesmo problema. Aqui (so no Card 1) a caixa passa a
+       ocupar 100% do card de verdade, e "cover" preenche sem deformar,
+       cortando so as laterais. Slides 1 e 2 continuam exatamente como
+       estavam, inalterados. */
+    .hero-slide[data-slide="0"] picture,
+    .hero-slide[data-slide="0"] img {
+      display:block !important;
+      width:100% !important;
+      height:100% !important;
+    }
+    .hero-slide[data-slide="0"] img { object-fit:cover !important; object-position:center !important; }
     .hero-content { position:relative !important; z-index:2 !important; }
     .hero-stats { position:relative !important; z-index:2 !important; }
 
