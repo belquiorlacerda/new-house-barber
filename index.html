@@ -162,12 +162,14 @@
     [data-slide="0"] img { object-fit:cover !important; object-position:center center !important; }
     [data-slide="1"] img { object-position:80% center !important; }
     [data-slide="2"] img { object-position:55% center !important; }
-    /* Cards 2 e 3 (fotos escuras): a mascara compartilhada comeca em 8% de
+    /* Cards 1, 2 e 3 (fotos escuras): a mascara compartilhada comeca em 8% de
        opacidade na borda esquerda, o que criava um degrau/risco vertical
-       visivel na transicao (imperceptivel no card 1, que e claro). Aqui a
-       mascara comeca em 0 (totalmente transparente), suavizando a transicao e
-       eliminando a faixa. Card 1 permanece com a mascara compartilhada. */
-    [data-slide="1"] img, [data-slide="2"] img {
+       visivel na transicao. Aqui a mascara comeca em 0 (totalmente
+       transparente), suavizando a transicao e eliminando a faixa. (Card 1
+       usava a mascara compartilhada de 8% porque a foto antiga era clara,
+       onde o degrau nao aparecia; a foto atual e escura/colorida, entao
+       recebe o mesmo ajuste que ja existia para os Cards 2 e 3.) */
+    [data-slide="0"] img, [data-slide="1"] img, [data-slide="2"] img {
       -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
       mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
     }
@@ -245,19 +247,24 @@
     }
     /* Card 1 (foto horizontal do ambiente): o <picture>/<img> ficavam com
        display:inline e sem altura definida, entao a caixa da imagem assumia
-       a altura natural da propria foto (regra width:100% + altura conforme a
-       proporcao) em vez de preencher o card. Com uma foto mais larga que alta
-       isso sobrava uma faixa bem fina, com muito espaco em branco acima/abaixo
-       — diferente dos Cards 2 e 3, que usam fotos mais verticais e por isso
-       disfarçavam o mesmo problema. Aqui (so no Card 1) a caixa passa a
-       ocupar 100% do card de verdade, e "cover" preenche sem deformar,
-       cortando so as laterais. Slides 1 e 2 continuam exatamente como
-       estavam, inalterados. */
+       a altura natural da propria foto (largura 100% + altura conforme a
+       proporcao dela). Com uma foto mais larga que alta isso sobrava uma
+       faixa fina, com muito espaco em branco. Preencher com altura:100% do
+       card resolvia o espaco em branco, mas fazia a foto subir ate debaixo
+       do menu HOME/SERVICOS/... (que tem fundo transparente, pensado para
+       ficar sobre o fundo claro do hero, nao sobre uma foto). A solucao e
+       dar ao Card 1 a MESMA altura/proporcao que os Cards 2 e 3 já têm
+       (aspect-ratio identico ao das fotos deles: 1086x1448) — assim ele fica
+       do mesmo tamanho e na mesma posição que os outros dois (centralizado
+       verticalmente no card, com o menu livre em cima), e "cover" preenche
+       essa mesma area cortando so as laterais da foto, sem deformar. Slides
+       1 e 2 continuam exatamente como estavam, inalterados. */
     .hero-slide[data-slide="0"] picture,
     .hero-slide[data-slide="0"] img {
       display:block !important;
       width:100% !important;
-      height:100% !important;
+      height:auto !important;
+      aspect-ratio:1086/1448 !important;
     }
     .hero-slide[data-slide="0"] img { object-fit:cover !important; object-position:center !important; }
     .hero-content { position:relative !important; z-index:2 !important; }
