@@ -379,10 +379,31 @@
        to ~0px tall, so give it an explicit height */
     .pacote-photo { height:220px !important; }
   }
+
+  /* ===== Transição de página (cortina) entre Home e Escola de Barbeiros =====
+     Painel fixo que cobre a tela ao navegar entre as páginas internas e depois
+     sobe revelando a nova página. Fica fora da tela e sem capturar cliques
+     quando não há navegação, então não altera nada do layout/visual do site. */
+  .pt-overlay { position:fixed; inset:0; z-index:100000; background:#F7F7F5; transform:translateY(100%); pointer-events:none; will-change:transform; }
+  .pt-overlay.pt-animate { transition:transform .55s cubic-bezier(.76,0,.24,1); }
+  html.pt-cover .pt-overlay { transform:translateY(0); }
+  html.pt-reveal .pt-overlay { transform:translateY(-100%); }
+  @media (prefers-reduced-motion: reduce){ .pt-overlay.pt-animate { transition:none; } }
 </style>
+<script>
+  /* Aplica o estado "coberto" antes da primeira pintura quando chegamos via
+     transição, para a cortina já aparecer cobrindo (sem flash). */
+  (function(){
+    try{
+      var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(!reduce && sessionStorage.getItem('pt-nav')==='1'){ document.documentElement.classList.add('pt-cover'); }
+    }catch(e){}
+  })();
+</script>
 </head>
 <body>
 <div style="background:#FFFFFF;">
+  <div class="pt-overlay" aria-hidden="true"></div>
 
   <!-- ===== HEADER ===== -->
   <header id="topo" style="background:#FFFFFF; border-bottom:1px solid #E4E4E2;">
@@ -828,6 +849,61 @@
         smoothScrollTo(y, 600);
       });
     });
+  })();
+</script>
+<script>
+  /* Transição de página (cortina) entre Home e Escola de Barbeiros. */
+  (function(){
+    var html = document.documentElement;
+    var ov = document.querySelector('.pt-overlay');
+    if(!ov) return;
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ENTRADA: se chegamos cobertos, sobe a cortina revelando a página.
+    function reveal(){
+      if(!html.classList.contains('pt-cover')) return;
+      ov.classList.add('pt-animate');
+      void ov.offsetWidth;                 // reflow p/ garantir a transição
+      html.classList.remove('pt-cover');
+      html.classList.add('pt-reveal');
+    }
+    if(html.classList.contains('pt-cover')){
+      setTimeout(reveal, 30);
+      window.addEventListener('load', function(){ setTimeout(reveal, 20); });
+      // segurança: nunca deixa a cortina presa (ex.: aba em segundo plano)
+      setTimeout(function(){ html.classList.remove('pt-cover'); }, 1200);
+    }
+    try{ sessionStorage.removeItem('pt-nav'); }catch(e){}
+
+    // bfcache (voltar/avançar): nunca deixa a cortina presa cobrindo.
+    window.addEventListener('pageshow', function(e){
+      if(e.persisted){ html.classList.remove('pt-cover'); ov.classList.remove('pt-animate'); }
+    });
+
+    if(reduce) return; // sem animação → navegação normal
+
+    // SAÍDA: cobre a tela antes de ir para a outra página interna (.html).
+    document.addEventListener('click', function(e){
+      var a = e.target && e.target.closest ? e.target.closest('a') : null;
+      if(!a) return;
+      if(a.target==='_blank' || a.hasAttribute('download')) return;
+      if(e.defaultPrevented || e.button!==0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var href = a.getAttribute('href') || '';
+      if(!href || href.charAt(0)==='#') return;              // âncora na mesma página
+      if(/^(https?:|mailto:|tel:)/i.test(href)) return;      // externos / protocolos
+      if(!/\.html(\?|#|$)/i.test(href)) return;              // só páginas internas .html
+      e.preventDefault();
+      try{ sessionStorage.setItem('pt-nav','1'); }catch(err){}
+      ov.classList.remove('pt-animate');
+      html.classList.remove('pt-reveal');
+      void ov.offsetWidth;                                   // reflow: cortina na base
+      ov.classList.add('pt-animate');
+      setTimeout(function(){ html.classList.add('pt-cover'); }, 10);
+      var navigated = false;
+      var go = function(){ if(navigated) return; navigated = true; window.location.href = href; };
+      ov.addEventListener('transitionend', go, { once:true });
+      setTimeout(go, 700);
+    }, false);
   })();
 </script>
 
