@@ -160,16 +160,12 @@
     /* Card 1 (foto horizontal 16:9): "cover" preenche o card inteiro sem
        deformar; o barbeiro fica centralizado e so a parede lateral e cortada. */
     [data-slide="0"] img { object-fit:cover !important; object-position:center center !important; }
-    [data-slide="1"] img { object-position:80% center !important; }
-    [data-slide="2"] img { object-position:55% center !important; }
-    /* Cards 1, 2 e 3 (fotos escuras): a mascara compartilhada comeca em 8% de
-       opacidade na borda esquerda, o que criava um degrau/risco vertical
-       visivel na transicao. Aqui a mascara comeca em 0 (totalmente
-       transparente), suavizando a transicao e eliminando a faixa. (Card 1
-       usava a mascara compartilhada de 8% porque a foto antiga era clara,
-       onde o degrau nao aparecia; a foto atual e escura/colorida, entao
-       recebe o mesmo ajuste que ja existia para os Cards 2 e 3.) */
-    [data-slide="0"] img, [data-slide="1"] img, [data-slide="2"] img {
+    /* Card 2 (foto do antigo Card 3, agora usada como fundo do slide da Escola) */
+    [data-slide="1"] img { object-position:55% center !important; }
+    /* Cards 1 e 2 (fotos escuras): a mascara compartilhada comeca em 0
+       (totalmente transparente) na borda esquerda, suavizando a transicao e
+       eliminando qualquer degrau/risco vertical. */
+    [data-slide="0"] img, [data-slide="1"] img {
       -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
       mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
     }
@@ -447,19 +443,35 @@
         <a href="https://chat.whatsapp.com/LxnzJGMdPTo1pbNoj823ME" target="_blank" rel="noopener noreferrer">Comunidade</a>
       </nav>
       <div class="hero-text" style="max-width:560px;">
-        <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(48px,8vw,86px); line-height:0.94; letter-spacing:1px; text-transform:uppercase; color:#141414;">
-          Seu Estilo.<br><span style="color:#3A3A3A;">Sua Presença.</span>
-        </h1>
-        <p style="font-family:'Dancing Script',cursive; font-size:clamp(30px,4.5vw,46px); color:#3A3A3A; margin-top:22px; line-height:1;">Seu melhor visual começa aqui.</p>
-        <p style="font-family:'Barlow',sans-serif; font-size:16px; color:#5A5A5A; margin-top:20px; max-width:400px; line-height:1.6;">Experiência premium em cortes, barba e cuidados masculinos.</p>
-        <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:32px;">
-          <a href="https://wa.me/5517997550146?text=Quero%20agendar%20um%20hor%C3%A1rio%2C%20vim%20pelo%20site." target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:#FFFFFF; font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; padding:15px 28px;">Agendar Horário <span>→</span></a>
-          <a href="#servicos" style="display:inline-flex; align-items:center; gap:10px; border:1px solid #141414; color:#141414; font-family:'Oswald',sans-serif; font-weight:500; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; padding:15px 28px;">Ver Serviços</a>
+        <!-- Dois painéis de texto empilhados na mesma célula (grid): o carrossel
+             alterna entre eles junto com a foto. Slide 1 = "Seu Estilo";
+             Slide 2 = hero da Escola de Barbeiros (transportado). O painel
+             inativo fica opacity:0 + pointer-events:none, sem capturar cliques. -->
+        <div style="display:grid;">
+          <div class="hero-panel" data-panel="0" style="grid-area:1 / 1; opacity:1; pointer-events:auto; transition:opacity .5s ease;">
+            <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(48px,8vw,86px); line-height:0.94; letter-spacing:1px; text-transform:uppercase; color:#141414;">
+              Seu Estilo.<br><span style="color:#3A3A3A;">Sua Presença.</span>
+            </h1>
+            <p style="font-family:'Dancing Script',cursive; font-size:clamp(30px,4.5vw,46px); color:#3A3A3A; margin-top:22px; line-height:1;">Seu melhor visual começa aqui.</p>
+            <p style="font-family:'Barlow',sans-serif; font-size:16px; color:#5A5A5A; margin-top:20px; max-width:400px; line-height:1.6;">Experiência premium em cortes, barba e cuidados masculinos.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:32px;">
+              <a href="https://wa.me/5517997550146?text=Quero%20agendar%20um%20hor%C3%A1rio%2C%20vim%20pelo%20site." target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:#FFFFFF; font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; padding:15px 28px;">Agendar Horário <span>→</span></a>
+              <a href="#servicos" style="display:inline-flex; align-items:center; gap:10px; border:1px solid #141414; color:#141414; font-family:'Oswald',sans-serif; font-weight:500; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; padding:15px 28px;">Ver Serviços</a>
+            </div>
+          </div>
+          <div class="hero-panel" data-panel="1" style="grid-area:1 / 1; opacity:0; pointer-events:none; transition:opacity .5s ease;">
+            <div style="font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:3.5px; text-transform:uppercase; color:#8C8C8C; margin-bottom:16px;">New House • Formação</div>
+            <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(40px,6.4vw,68px); line-height:0.96; letter-spacing:1px; text-transform:uppercase;"><span class="shimmer-text">Escola de Barbeiros</span></h1>
+            <p style="font-family:'Dancing Script',cursive; font-size:clamp(28px,4.3vw,44px); color:#3A3A3A; margin-top:20px; line-height:1;">Muito além do corte.</p>
+            <p style="font-family:'Barlow',sans-serif; font-size:16px; color:#5A5A5A; margin-top:20px; max-width:400px; line-height:1.6;">Uma formação para construir uma profissão, uma marca e um negócio.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:32px;">
+              <a href="escola-de-barbeiros.html" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:#FFFFFF; font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; padding:15px 28px;">Conheça a Escola de Barbeiros <span>→</span></a>
+            </div>
+          </div>
         </div>
         <div class="hero-dots" style="display:flex; gap:10px; margin-top:36px;">
-          <button type="button" class="hero-dot" data-dot="0" aria-label="Estado 1" style="width:16px; height:16px; padding:0; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span style="width:7px; height:7px; border-radius:50%; background:#141414; transform:scale(1.3); transition:all .3s ease; display:block;"></span></button>
-          <button type="button" class="hero-dot" data-dot="1" aria-label="Estado 2" style="width:16px; height:16px; padding:0; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span style="width:7px; height:7px; border-radius:50%; background:#D8D8D6; transform:scale(1); transition:all .3s ease; display:block;"></span></button>
-          <button type="button" class="hero-dot" data-dot="2" aria-label="Estado 3" style="width:16px; height:16px; padding:0; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span style="width:7px; height:7px; border-radius:50%; background:#D8D8D6; transform:scale(1); transition:all .3s ease; display:block;"></span></button>
+          <button type="button" class="hero-dot" data-dot="0" aria-label="Slide 1" style="width:16px; height:16px; padding:0; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span style="width:7px; height:7px; border-radius:50%; background:#141414; transform:scale(1.3); transition:all .3s ease; display:block;"></span></button>
+          <button type="button" class="hero-dot" data-dot="1" aria-label="Slide 2" style="width:16px; height:16px; padding:0; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center;"><span style="width:7px; height:7px; border-radius:50%; background:#D8D8D6; transform:scale(1); transition:all .3s ease; display:block;"></span></button>
         </div>
       </div>
     </div>
@@ -471,13 +483,7 @@
           <img src="assets/hero-card1-mobile.webp" alt="New House Barber" fetchpriority="high" decoding="async" style="width:100%; height:100%; object-fit:contain; object-position:center;">
         </picture>
       </div>
-      <div class="hero-slide" data-slide="1" style="position:absolute; inset:0; opacity:0; transition:opacity .5s ease; background:#F7F7F5; display:flex; align-items:center; justify-content:center;">
-        <picture>
-          <source media="(min-width:901px)" srcset="assets/hero-card2-wide.jpg">
-          <img src="assets/hero-card2.jpg" alt="New House Barber" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; object-position:center 22%;">
-        </picture>
-      </div>
-      <div class="hero-slide" data-slide="2" style="position:absolute; inset:0; opacity:0; transition:opacity .5s ease; display:flex; align-items:center; justify-content:center; background:#F7F7F5;">
+      <div class="hero-slide" data-slide="1" style="position:absolute; inset:0; opacity:0; transition:opacity .5s ease; display:flex; align-items:center; justify-content:center; background:#F7F7F5;">
         <picture>
           <source media="(min-width:901px)" srcset="assets/hero-card3-wide.jpg">
           <img src="assets/hero-card3.jpg" alt="New House Barber" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:contain; object-position:center;">
@@ -490,10 +496,16 @@
       (function(){
         var slides = document.querySelectorAll('.hero-slide');
         var dots = document.querySelectorAll('.hero-dot');
+        var panels = document.querySelectorAll('.hero-panel');
         var current = 0, timer;
         function show(i){
           current = i;
           slides.forEach(function(s){ s.style.opacity = (+s.dataset.slide === i) ? '1' : '0'; });
+          panels.forEach(function(p){
+            var on = +p.dataset.panel === i;
+            p.style.opacity = on ? '1' : '0';
+            p.style.pointerEvents = on ? 'auto' : 'none';
+          });
           dots.forEach(function(d){
             var span = d.querySelector('span');
             var active = +d.dataset.dot === i;
