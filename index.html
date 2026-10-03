@@ -211,16 +211,16 @@
   .escola-wrap { display:flex; flex-wrap:wrap; gap:48px; align-items:center; }
   .escola-text { flex:1.05 1 400px; min-width:280px; }
   .escola-media { flex:1 1 440px; min-width:280px; }
+  /* Quadro de fotos da Escola: carrossel automático das 3 fotos reais
+     (crossfade de 1s, troca a cada 3s, loop). Sem borda/fundo escuro,
+     sem controles e sem bolinhas — as fotos preenchem a área via
+     object-fit:cover, sem barras pretas nem deformação. Mesmo tamanho,
+     posição e proporção (4/3.4) do espaço que já existia. */
   .escola-photo {
-    position:relative; aspect-ratio:4/3.4; overflow:hidden;
-    background:linear-gradient(135deg, #1C1C1E 0%, #242424 55%, #1A1A1C 100%);
-    border:1px solid #2A2A2C; display:flex; align-items:center; justify-content:center;
+    position:relative; aspect-ratio:4/3.4; overflow:hidden; background:#EDEDEB;
   }
-  .escola-photo::after {
-    content:''; position:absolute; inset:0;
-    background:radial-gradient(circle at 70% 25%, rgba(201,162,39,0.10), transparent 55%);
-    pointer-events:none;
-  }
+  .escola-slide { position:absolute; inset:0; opacity:0; transition:opacity 1s ease; }
+  .escola-slide img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
   .escola-feat-card { transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease; }
   .escola-feat-card:hover { transform:translateY(-4px); border-color:#C9A227; box-shadow:0 14px 30px -18px rgba(0,0,0,0.35); }
   .escola-seq-item { transition:color .3s ease; }
@@ -762,16 +762,38 @@
         </div>
         <div class="escola-media">
           <div class="escola-photo">
-            <div style="position:relative; z-index:1; text-align:center; padding:24px;">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.9;"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
-              <div style="font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:2.5px; text-transform:uppercase; color:#D9C9A0; margin-top:16px;">New House • Formação</div>
-              <div style="font-family:'Barlow',sans-serif; font-size:12.5px; color:#8C8886; margin-top:8px;">Espaço reservado para as fotos da Escola</div>
+            <div class="escola-slide" data-i="0" style="opacity:1;">
+              <img src="assets/escola-1.jpg" alt="Aula da Escola de Barbeiros New House" loading="lazy" decoding="async">
+            </div>
+            <div class="escola-slide" data-i="1">
+              <img src="assets/escola-2.jpg" alt="Entrega de certificados da Escola de Barbeiros New House" loading="lazy" decoding="async">
+            </div>
+            <div class="escola-slide" data-i="2">
+              <img src="assets/escola-3.jpg" alt="Turma formada pela Escola de Barbeiros New House" loading="lazy" decoding="async">
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <script>
+    /* Carrossel automático das fotos da Escola (sem controles): troca a cada
+       3s com crossfade de 1s, em loop contínuo. Usa data-i próprio para não
+       herdar as regras do carrossel do hero. */
+    (function(){
+      var slides = document.querySelectorAll('.escola-slide');
+      if(slides.length < 2) return;
+      var current = 0, timer;
+      function show(i){
+        current = (i + slides.length) % slides.length;
+        slides.forEach(function(s){ s.style.opacity = (+s.dataset.i === current) ? '1' : '0'; });
+      }
+      function next(){ show(current + 1); }
+      function restart(){ clearInterval(timer); timer = setInterval(next, 3000); }
+      restart();
+    })();
+  </script>
 
   <!-- ===== FOOTER ===== -->
   <footer id="contato" class="reveal" style="background:#F7F7F5; border-top:1px solid #E4E4E2; padding:56px 24px 26px;">
