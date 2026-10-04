@@ -79,8 +79,27 @@
     .shimmer-text.on-dark { -webkit-text-fill-color:#F2F2F0; color:#F2F2F0; }
   }
 
+  /* "O que você vai aprender": 2 colunas no desktop — título + cards à
+     esquerda, carrossel de fotos à direita; empilha no tablet/mobile. */
+  .aprender-wrap { display:flex; flex-wrap:wrap; gap:40px; align-items:stretch; }
+  .aprender-col { flex:1.25 1 440px; min-width:300px; }
+  .aprender-media { flex:1 1 340px; min-width:280px; }
+  /* Carrossel: fotos preenchem a área via object-fit:cover (sem bordas/
+     barras pretas), crossfade de 1s, troca a cada 3s, loop, sem controles. */
+  .aprender-photo { position:relative; overflow:hidden; background:#EDEDEB; height:100%; min-height:440px; }
+  .aprender-slide { position:absolute; inset:0; opacity:0; transition:opacity 1s ease; }
+  .aprender-slide img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+
   /* Cards "O que você vai aprender" */
-  .aprender-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(290px, 1fr)); gap:22px; }
+  .aprender-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:22px; }
+  /* Empilhado (tablet/mobile): o quadro de fotos usa proporção própria em vez
+     de esticar na altura da coluna de cards. */
+  @media (max-width:880px){
+    .aprender-photo { height:auto; min-height:0; aspect-ratio:4/3.4; }
+  }
+  @media (max-width:560px){
+    .aprender-grid { grid-template-columns:1fr; }
+  }
   .feat-card {
     background:#FFFFFF; border:1px solid #E4E4E2; padding:30px 28px 30px;
     transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease;
@@ -163,12 +182,13 @@
         <a href="escola-de-barbeiros.html" class="active">Escola</a>
         <a href="https://chat.whatsapp.com/LxnzJGMdPTo1pbNoj823ME" target="_blank" rel="noopener noreferrer">Comunidade</a>
       </nav>
-      <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:46px;">
-        <span style="height:1px; width:60px; background:#DADAD8;"></span>
-        <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:22px; letter-spacing:3px; text-transform:uppercase; color:#141414; text-align:center;">O que você vai aprender</h2>
-        <span style="height:1px; width:60px; background:#DADAD8;"></span>
-      </div>
-      <div class="aprender-grid">
+      <div class="aprender-wrap">
+        <div class="aprender-col">
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:30px;">
+            <span style="height:1px; width:46px; background:#DADAD8;"></span>
+            <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:22px; letter-spacing:3px; text-transform:uppercase; color:#141414;">O que você vai aprender</h2>
+          </div>
+          <div class="aprender-grid">
 
         <div class="feat-card reveal">
           <span class="feat-icon" style="display:inline-flex;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></span>
@@ -206,9 +226,42 @@
           <p style="font-family:'Barlow',sans-serif; font-size:14px; color:#5A5A5A; line-height:1.7;">Construção de marca, identidade, imagem profissional, cultura e experiência.</p>
         </div>
 
+          </div>
+        </div>
+        <div class="aprender-media">
+          <div class="aprender-photo">
+            <div class="aprender-slide" data-i="0" style="opacity:1;">
+              <img src="assets/aprender-1.jpg" alt="Aula prática da Escola de Barbeiros New House" loading="lazy" decoding="async">
+            </div>
+            <div class="aprender-slide" data-i="1">
+              <img src="assets/aprender-2.jpg" alt="Turma acompanhando a aula na Escola de Barbeiros New House" loading="lazy" decoding="async">
+            </div>
+            <div class="aprender-slide" data-i="2">
+              <img src="assets/aprender-3.jpg" alt="Alunos da Escola de Barbeiros New House durante a formação" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <script>
+    /* Carrossel automático das fotos da Escola ("O que você vai aprender"):
+       troca a cada 3s com crossfade de 1s, em loop, sem controles. data-i
+       próprio para não interferir em nenhum outro carrossel. */
+    (function(){
+      var slides = document.querySelectorAll('.aprender-slide');
+      if(slides.length < 2) return;
+      var current = 0, timer;
+      function show(i){
+        current = (i + slides.length) % slides.length;
+        slides.forEach(function(s){ s.style.opacity = (+s.dataset.i === current) ? '1' : '0'; });
+      }
+      function next(){ show(current + 1); }
+      function restart(){ clearInterval(timer); timer = setInterval(next, 3000); }
+      restart();
+    })();
+  </script>
 
   <!-- ===== NOSSO DIFERENCIAL ===== -->
   <section class="reveal" style="background:#141414; padding:78px 0 82px;">
