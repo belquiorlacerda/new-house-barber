@@ -250,8 +250,14 @@
      preenchidas com object-fit:cover (sem deformar); nome abaixo, centrado. */
   .barbeiros-grid { display:flex; flex-wrap:wrap; gap:32px; }
   .barbeiro-card { flex:1 1 280px; min-width:260px; }
-  .barbeiro-photo { position:relative; aspect-ratio:4/5; overflow:hidden; background:#F2F2F0; border:1px solid #E4E4E2; }
-  .barbeiro-photo img { display:block; width:100%; height:100%; object-fit:cover; object-position:center 20%; }
+  /* Fotos sem fundo (PNG com transparência): sem caixa/borda — o recorte
+     "flutua" direto sobre o fundo branco da própria seção. object-fit:contain
+     preserva a proporção original sem distorcer; os dois barbeiros ficam
+     alinhados pela base (align-items:flex-end), como se estivessem lado a
+     lado na mesma "linha do chão". Mesma área/aspect-ratio de antes, então
+     o tamanho da seção não muda. */
+  .barbeiro-photo { position:relative; aspect-ratio:4/5; display:flex; align-items:flex-end; justify-content:center; }
+  .barbeiro-photo img { display:block; width:100%; height:100%; object-fit:contain; object-position:bottom center; }
   .barbeiro-nome { font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; letter-spacing:1.5px; text-transform:uppercase; color:#141414; text-align:center; margin-top:16px; }
 
   /* Mobile-only header nav: hidden by default so desktop/tablet are untouched;
@@ -630,11 +636,11 @@
       </div>
       <div class="barbeiros-grid">
         <div class="barbeiro-card">
-          <div class="barbeiro-photo"><img src="assets/barbeiro-pedro.jpg" alt="Felipe Boscolo, barbeiro da New House Barber" loading="lazy" decoding="async"></div>
+          <div class="barbeiro-photo"><img src="assets/barbeiro-pedro-semfundo.png" alt="Felipe Boscolo, barbeiro da New House Barber" loading="lazy" decoding="async"></div>
           <div class="barbeiro-nome">Felipe Boscolo</div>
         </div>
         <div class="barbeiro-card">
-          <div class="barbeiro-photo"><img src="assets/barbeiro-felipe-boscolo.webp" alt="Pedro, barbeiro da New House Barber" loading="lazy" decoding="async"></div>
+          <div class="barbeiro-photo"><img src="assets/barbeiro-felipe-boscolo-semfundo.png" alt="Pedro, barbeiro da New House Barber" loading="lazy" decoding="async"></div>
           <div class="barbeiro-nome">Pedro</div>
         </div>
       </div>
