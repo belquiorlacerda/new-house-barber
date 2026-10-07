@@ -228,6 +228,22 @@
     .escola-media { order:-1; }
   }
 
+  /* ===== Vitrine "Produtos New House" ===== Grade de cards de produto —
+     mesma linguagem visual dos outros cards do site (borda clara, hover
+     com leve elevação + borda dourada). object-fit:cover mantém a foto
+     sem deformar; as linhas do grid ficam com a mesma altura. auto-fit
+     faz 5 por linha no desktop (1180px), menos colunas no tablet e
+     1 coluna em telas estreitas de mobile — fotos grandes, sem apertar. */
+  .produtos-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:22px; }
+  .produto-card { background:#FFFFFF; border:1px solid #E4E4E2; overflow:hidden; display:flex; flex-direction:column; transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease; }
+  .produto-card:hover { transform:translateY(-5px); border-color:#C9A227; box-shadow:0 16px 34px -20px rgba(0,0,0,0.33); }
+  .produto-photo { position:relative; aspect-ratio:4/5; overflow:hidden; background:#F2F2F0; }
+  .produto-photo img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+  .produto-info { padding:18px 18px 22px; flex:1; }
+  .produto-nome { font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:1px; text-transform:uppercase; color:#141414; }
+  .produto-marca { font-family:'Oswald',sans-serif; font-size:10.5px; letter-spacing:1.8px; text-transform:uppercase; color:#A9812F; margin-top:4px; }
+  .produto-desc { font-family:'Barlow',sans-serif; font-size:12.5px; color:#6B6B6B; margin-top:8px; line-height:1.55; }
+
   /* Mobile-only header nav: hidden by default so desktop/tablet are untouched;
      turned on inside the <=640px block below. */
   .mobile-nav { display:none; }
@@ -746,6 +762,65 @@
       </div>
     </div>
   </div>
+  </section>
+
+  <!-- ===== PRODUTOS NEW HOUSE (vitrine) ===== -->
+  <section id="produtos" class="reveal" style="background:#F7F7F5; padding:72px 0 76px; border-top:1px solid #E4E4E2; border-bottom:1px solid #E4E4E2;">
+    <div style="max-width:1180px; margin:0 auto; padding:0 24px;">
+      <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:12px;">
+        <span style="height:1px; width:60px; background:#DADAD8;"></span>
+        <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:22px; letter-spacing:3px; text-transform:uppercase; color:#141414; text-align:center;">Produtos New House</h2>
+        <span style="height:1px; width:60px; background:#DADAD8;"></span>
+      </div>
+      <p style="font-family:'Barlow',sans-serif; font-size:15px; color:#6B6B6B; text-align:center; max-width:520px; margin:0 auto 42px;">Os produtos que fazem parte da experiência New House.</p>
+
+      <div class="produtos-grid">
+        <div class="produto-card reveal">
+          <div class="produto-photo"><img src="assets/produtos/joru-fresh-action-shampoo.jpg" alt="Shampoo Fresh Action, JORU Cosmetics" loading="lazy" decoding="async"></div>
+          <div class="produto-info">
+            <div class="produto-nome">Fresh Action</div>
+            <div class="produto-marca">JORU Cosmetics</div>
+            <div class="produto-desc">Shampoo · Mentol + Café · Ação refrescante</div>
+          </div>
+        </div>
+        <div class="produto-card reveal">
+          <div class="produto-photo"><img src="assets/produtos/joru-hydra-action-mascara.jpg" alt="Máscara Hydra Action, JORU Cosmetics" loading="lazy" decoding="async"></div>
+          <div class="produto-info">
+            <div class="produto-nome">Hydra Action</div>
+            <div class="produto-marca">JORU Cosmetics</div>
+            <div class="produto-desc">Máscara · Glicerina + Manteiga de Karité · Óleos nobres</div>
+          </div>
+        </div>
+        <div class="produto-card reveal">
+          <div class="produto-photo"><img src="assets/produtos/garden-balm-barba-bigode.jpg" alt="Balm para Barba e Bigode Macadâmia, Garden For Men" loading="lazy" decoding="async"></div>
+          <div class="produto-info">
+            <div class="produto-nome">Balm Barba e Bigode</div>
+            <div class="produto-marca">Garden For Men</div>
+            <div class="produto-desc">Macadâmia · Anti-frizz · Umectação</div>
+          </div>
+        </div>
+        <div class="produto-card reveal">
+          <div class="produto-photo"><img src="assets/produtos/cera-de-abelha.jpg" alt="Cera de Abelha, cera modeladora" loading="lazy" decoding="async"></div>
+          <div class="produto-info">
+            <div class="produto-nome">Cera de Abelha</div>
+            <div class="produto-marca">Cera Modeladora</div>
+            <div class="produto-desc">Fixação moderada · Brilho suave</div>
+          </div>
+        </div>
+        <div class="produto-card reveal">
+          <div class="produto-photo"><img src="assets/produtos/yggi-anticaspa.jpg" alt="Shampoo Anticaspa, YGGI For Men" loading="lazy" decoding="async"></div>
+          <div class="produto-info">
+            <div class="produto-nome">Shampoo Anticaspa</div>
+            <div class="produto-marca">YGGI For Men</div>
+            <div class="produto-desc">Vital Scalp Balance · Previne e trata a caspa sem ressecar os fios</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:44px;">
+        <a href="produtos.html" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:#FFFFFF; font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; padding:16px 34px;">Ver Catálogo Completo <span>→</span></a>
+      </div>
+    </div>
   </section>
 
   <!-- ===== ESCOLA DE BARBEIROS (apresentação / convite) ===== -->
