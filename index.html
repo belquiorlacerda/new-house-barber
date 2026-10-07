@@ -244,6 +244,16 @@
   .produto-marca { font-family:'Oswald',sans-serif; font-size:10.5px; letter-spacing:1.8px; text-transform:uppercase; color:#A9812F; margin-top:4px; }
   .produto-desc { font-family:'Barlow',sans-serif; font-size:12.5px; color:#6B6B6B; margin-top:8px; line-height:1.55; }
 
+  /* ===== "Nossos Barbeiros" ===== Dois cards lado a lado (cada um ~metade
+     da largura via flex:1 1 280px), empilhando sozinhos no mobile porque
+     dois cards de min-width:260px não cabem numa tela estreita. Fotos reais
+     preenchidas com object-fit:cover (sem deformar); nome abaixo, centrado. */
+  .barbeiros-grid { display:flex; flex-wrap:wrap; gap:32px; }
+  .barbeiro-card { flex:1 1 280px; min-width:260px; }
+  .barbeiro-photo { position:relative; aspect-ratio:4/5; overflow:hidden; background:#F2F2F0; border:1px solid #E4E4E2; }
+  .barbeiro-photo img { display:block; width:100%; height:100%; object-fit:cover; object-position:center 20%; }
+  .barbeiro-nome { font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; letter-spacing:1.5px; text-transform:uppercase; color:#141414; text-align:center; margin-top:16px; }
+
   /* Mobile-only header nav: hidden by default so desktop/tablet are untouched;
      turned on inside the <=640px block below. */
   .mobile-nav { display:none; }
@@ -606,6 +616,27 @@
         <div style="font-family:'Barlow',sans-serif; font-size:11.5px; color:#6B6B6B; margin-top:9px; line-height:1.5;">Barba com a técnica e o padrão de qualidade New House, com agilidade e praticidade.</div>
         <div style="display:inline-block; margin-top:12px; font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:#A9812F; background:#F1E7CE; padding:4px 10px;">Premium</div>
       </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NOSSOS BARBEIROS ===== -->
+  <section id="barbeiros" class="reveal" style="background:#FFFFFF; padding:64px 0 72px;">
+    <div style="max-width:1180px; margin:0 auto; padding:0 24px;">
+      <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:42px;">
+        <span style="height:1px; width:60px; background:#DADAD8;"></span>
+        <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:22px; letter-spacing:3px; text-transform:uppercase; color:#141414; text-align:center;">Nossos Barbeiros</h2>
+        <span style="height:1px; width:60px; background:#DADAD8;"></span>
+      </div>
+      <div class="barbeiros-grid">
+        <div class="barbeiro-card">
+          <div class="barbeiro-photo"><img src="assets/barbeiro-felipe-boscolo.webp" alt="Felipe Boscolo, barbeiro da New House Barber" loading="lazy" decoding="async"></div>
+          <div class="barbeiro-nome">Felipe Boscolo</div>
+        </div>
+        <div class="barbeiro-card">
+          <div class="barbeiro-photo"><img src="assets/barbeiro-pedro.jpg" alt="Pedro, barbeiro da New House Barber" loading="lazy" decoding="async"></div>
+          <div class="barbeiro-nome">Pedro</div>
+        </div>
       </div>
     </div>
   </section>
