@@ -248,16 +248,19 @@
      da largura via flex:1 1 280px), empilhando sozinhos no mobile porque
      dois cards de min-width:260px não cabem numa tela estreita. Fotos reais
      preenchidas com object-fit:cover (sem deformar); nome abaixo, centrado. */
-  .barbeiros-grid { display:flex; flex-wrap:wrap; gap:32px; }
-  .barbeiro-card { flex:1 1 280px; min-width:260px; }
+  .barbeiros-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:32px; }
+  .barbeiro-card { flex:1 1 240px; min-width:220px; max-width:300px; }
   /* Fotos sem fundo (PNG com transparência): sem caixa/borda — o recorte
-     "flutua" direto sobre o fundo branco da própria seção. object-fit:contain
-     preserva a proporção original sem distorcer; os dois barbeiros ficam
-     alinhados pela base (align-items:flex-end), como se estivessem lado a
-     lado na mesma "linha do chão". Mesma área/aspect-ratio de antes, então
-     o tamanho da seção não muda. */
-  .barbeiro-photo { position:relative; aspect-ratio:4/5; display:flex; align-items:flex-end; justify-content:center; }
-  .barbeiro-photo img { display:block; width:100%; height:100%; object-fit:contain; object-position:bottom center; }
+     "flutua" direto sobre o fundo branco da própria seção. Altura fixa e
+     discreta (não preenche mais a área toda), com a foto alinhada pela
+     base, como se os dois estivessem lado a lado na mesma "linha do chão".
+     Sem aspect-ratio + percentual (deixava um vão vazio acima no mobile);
+     a altura da caixa é a própria altura da foto, sem sobra. */
+  .barbeiro-photo { position:relative; height:260px; display:flex; align-items:flex-end; justify-content:center; }
+  .barbeiro-photo img { display:block; width:auto; height:100%; max-width:100%; object-fit:contain; }
+  @media (max-width:640px){
+    .barbeiro-photo { height:220px; }
+  }
   .barbeiro-nome { font-family:'Oswald',sans-serif; font-weight:600; font-size:16px; letter-spacing:1.5px; text-transform:uppercase; color:#141414; text-align:center; margin-top:16px; }
 
   /* Mobile-only header nav: hidden by default so desktop/tablet are untouched;
