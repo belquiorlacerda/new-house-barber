@@ -106,9 +106,10 @@
       -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 20%, rgba(255,255,255,0.72) 44%, rgba(255,255,255,1) 66%) !important;
       mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 20%, rgba(255,255,255,0.72) 44%, rgba(255,255,255,1) 66%) !important;
     }
-    /* Card 2 (Escola de Barbeiros — foto de turma): sem corte, a pedido do
-       cliente — mantém a mesma máscara, só troca cover por contain. */
-    .hero-slide[data-slide="1"] img { object-fit:contain !important; }
+    /* Card 2 (Escola de Barbeiros — foto de turma): mesmo tratamento (cover
+       + máscara) dos cards 1 e 3; "top" prioriza rostos/certificados,
+       cortando mais de baixo (pernas) do que de cima. */
+    .hero-slide[data-slide="1"] img { object-position:center top !important; }
     .hero-media-legacy-fade { display:none !important; }
     .hero-stats {
       position:absolute !important;
@@ -166,10 +167,10 @@
        também bateria nos .ozonio-slide da seção de Experiência, que reusam
        os mesmos índices 0-3 para o próprio carrossel. */
     .hero-slide[data-slide="0"] img { object-fit:cover !important; object-position:center center !important; }
-    /* Card 2 (Escola de Barbeiros — foto de turma): sem corte, a pedido do
-       cliente — "contain" em vez do cover usado nos cards 1 e 3, mantendo a
-       mesma máscara de degradê da esquerda para a direita. */
-    .hero-slide[data-slide="1"] img { object-fit:contain !important; object-position:center center !important; }
+    /* Card 2 (Escola de Barbeiros — foto de turma): mesmo tratamento (cover
+       + máscara) dos cards 1 e 3; "top" prioriza rostos/certificados,
+       cortando mais de baixo (pernas) do que de cima. */
+    .hero-slide[data-slide="1"] img { object-position:center top !important; }
     /* Cards 1 e 2 (fotos escuras): a mascara compartilhada comeca em 0
        (totalmente transparente) na borda esquerda, suavizando a transicao e
        eliminando qualquer degrau/risco vertical. */
