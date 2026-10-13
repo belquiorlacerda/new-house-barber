@@ -106,6 +106,9 @@
       -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 20%, rgba(255,255,255,0.72) 44%, rgba(255,255,255,1) 66%) !important;
       mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 20%, rgba(255,255,255,0.72) 44%, rgba(255,255,255,1) 66%) !important;
     }
+    /* Card 2 (Escola de Barbeiros — foto de turma): sem corte, a pedido do
+       cliente — mantém a mesma máscara, só troca cover por contain. */
+    .hero-slide[data-slide="1"] img { object-fit:contain !important; }
     .hero-media-legacy-fade { display:none !important; }
     .hero-stats {
       position:absolute !important;
@@ -158,20 +161,25 @@
       mask-image:linear-gradient(to right, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
     }
     /* Card 1 (foto horizontal 16:9): "cover" preenche o card inteiro sem
-       deformar; o barbeiro fica centralizado e so a parede lateral e cortada. */
-    [data-slide="0"] img { object-fit:cover !important; object-position:center center !important; }
-    /* Card 2 (foto do antigo Card 3, agora usada como fundo do slide da Escola) */
-    [data-slide="1"] img { object-position:55% center !important; }
+       deformar; o barbeiro fica centralizado e so a parede lateral e cortada.
+       Seletores escopados a .hero-slide: sem o prefixo, [data-slide="N"]
+       também bateria nos .ozonio-slide da seção de Experiência, que reusam
+       os mesmos índices 0-3 para o próprio carrossel. */
+    .hero-slide[data-slide="0"] img { object-fit:cover !important; object-position:center center !important; }
+    /* Card 2 (Escola de Barbeiros — foto de turma): sem corte, a pedido do
+       cliente — "contain" em vez do cover usado nos cards 1 e 3, mantendo a
+       mesma máscara de degradê da esquerda para a direita. */
+    .hero-slide[data-slide="1"] img { object-fit:contain !important; object-position:center center !important; }
     /* Cards 1 e 2 (fotos escuras): a mascara compartilhada comeca em 0
        (totalmente transparente) na borda esquerda, suavizando a transicao e
        eliminando qualquer degrau/risco vertical. */
-    [data-slide="0"] img, [data-slide="1"] img, [data-slide="2"] img {
+    .hero-slide[data-slide="0"] img, .hero-slide[data-slide="1"] img, .hero-slide[data-slide="2"] img {
       -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
       mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
     }
     /* Card 3 (foto de produto, hero "Produtos New House"): mesmo tratamento
        (cover + máscara) dos Cards 1 e 2, para manter a mesma qualidade visual. */
-    [data-slide="2"] img { object-position:center 30% !important; }
+    .hero-slide[data-slide="2"] img { object-position:center 30% !important; }
     .hero-media-legacy-fade { display:none !important; }
   }
   @media (min-width:901px) and (max-width:1099px){
@@ -574,10 +582,7 @@
         </picture>
       </div>
       <div class="hero-slide" data-slide="1" style="position:absolute; inset:0; opacity:0; transition:opacity .5s ease; display:flex; align-items:center; justify-content:center; background:#F7F7F5;">
-        <picture>
-          <source media="(min-width:901px)" srcset="assets/hero-card3-wide.jpg">
-          <img src="assets/hero-card3.jpg" alt="New House Barber" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:contain; object-position:center;">
-        </picture>
+        <img src="assets/hero-formatura-escola.jpg" alt="Turma formada na Escola de Barbeiros New House" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:contain; object-position:center;">
       </div>
       <div class="hero-slide" data-slide="2" style="position:absolute; inset:0; opacity:0; transition:opacity .5s ease; display:flex; align-items:center; justify-content:center; background:#F7F7F5;">
         <picture>
