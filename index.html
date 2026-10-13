@@ -106,12 +106,6 @@
       -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 20%, rgba(255,255,255,0.72) 44%, rgba(255,255,255,1) 66%) !important;
       mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 20%, rgba(255,255,255,0.72) 44%, rgba(255,255,255,1) 66%) !important;
     }
-    /* Card 2 (Escola de Barbeiros — foto de turma): corpo inteiro sempre
-       visível, sem cortar ninguém — "contain" em vez do cover dos cards 1
-       e 3, e sem a máscara de degradê (que, sem preencher a caixa toda,
-       deixava a foto inteira esmaecida em vez de só a borda esquerda). O
-       próprio fundo da caixa (igual ao da página) já faz a transição. */
-    .hero-slide[data-slide="1"] img { object-fit:contain !important; object-position:center top !important; -webkit-mask-image:none !important; mask-image:none !important; }
     .hero-media-legacy-fade { display:none !important; }
     .hero-stats {
       position:absolute !important;
@@ -169,16 +163,14 @@
        também bateria nos .ozonio-slide da seção de Experiência, que reusam
        os mesmos índices 0-3 para o próprio carrossel. */
     .hero-slide[data-slide="0"] img { object-fit:cover !important; object-position:center center !important; }
-    /* Card 2 (Escola de Barbeiros — foto de turma): corpo inteiro sempre
-       visível, sem cortar ninguém — "contain" em vez do cover dos cards 1
-       e 3, e sem a máscara de degradê (que, sem preencher a caixa toda,
-       deixava a foto inteira esmaecida em vez de só a borda esquerda). O
-       próprio fundo da caixa (igual ao da página) já faz a transição. */
-    .hero-slide[data-slide="1"] img { object-fit:contain !important; object-position:center top !important; -webkit-mask-image:none !important; mask-image:none !important; }
-    /* Cards 1 e 3 (fotos escuras): a mascara compartilhada comeca em 0
+    /* Card 2 (Escola de Barbeiros — foto de turma): mesmo tratamento (cover
+       + máscara + posição central) do Card 1, sem nenhuma regra especial —
+       pedido explícito do cliente para ficar idêntico ao Card 1. */
+    .hero-slide[data-slide="1"] img { object-fit:cover !important; object-position:center center !important; }
+    /* Cards 1, 2 e 3 (fotos escuras): a mascara compartilhada comeca em 0
        (totalmente transparente) na borda esquerda, suavizando a transicao e
        eliminando qualquer degrau/risco vertical. */
-    .hero-slide[data-slide="0"] img, .hero-slide[data-slide="2"] img {
+    .hero-slide[data-slide="0"] img, .hero-slide[data-slide="1"] img, .hero-slide[data-slide="2"] img {
       -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
       mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
     }
