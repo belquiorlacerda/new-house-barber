@@ -106,10 +106,12 @@
       -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 20%, rgba(255,255,255,0.72) 44%, rgba(255,255,255,1) 66%) !important;
       mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 20%, rgba(255,255,255,0.72) 44%, rgba(255,255,255,1) 66%) !important;
     }
-    /* Card 2 (Escola de Barbeiros — foto de turma): mesmo tratamento (cover
-       + máscara) dos cards 1 e 3; "top" prioriza rostos/certificados,
-       cortando mais de baixo (pernas) do que de cima. */
-    .hero-slide[data-slide="1"] img { object-position:center top !important; }
+    /* Card 2 (Escola de Barbeiros — foto de turma): corpo inteiro sempre
+       visível, sem cortar ninguém — "contain" em vez do cover dos cards 1
+       e 3, e sem a máscara de degradê (que, sem preencher a caixa toda,
+       deixava a foto inteira esmaecida em vez de só a borda esquerda). O
+       próprio fundo da caixa (igual ao da página) já faz a transição. */
+    .hero-slide[data-slide="1"] img { object-fit:contain !important; object-position:center top !important; -webkit-mask-image:none !important; mask-image:none !important; }
     .hero-media-legacy-fade { display:none !important; }
     .hero-stats {
       position:absolute !important;
@@ -167,14 +169,16 @@
        também bateria nos .ozonio-slide da seção de Experiência, que reusam
        os mesmos índices 0-3 para o próprio carrossel. */
     .hero-slide[data-slide="0"] img { object-fit:cover !important; object-position:center center !important; }
-    /* Card 2 (Escola de Barbeiros — foto de turma): mesmo tratamento (cover
-       + máscara) dos cards 1 e 3; "top" prioriza rostos/certificados,
-       cortando mais de baixo (pernas) do que de cima. */
-    .hero-slide[data-slide="1"] img { object-position:center top !important; }
-    /* Cards 1 e 2 (fotos escuras): a mascara compartilhada comeca em 0
+    /* Card 2 (Escola de Barbeiros — foto de turma): corpo inteiro sempre
+       visível, sem cortar ninguém — "contain" em vez do cover dos cards 1
+       e 3, e sem a máscara de degradê (que, sem preencher a caixa toda,
+       deixava a foto inteira esmaecida em vez de só a borda esquerda). O
+       próprio fundo da caixa (igual ao da página) já faz a transição. */
+    .hero-slide[data-slide="1"] img { object-fit:contain !important; object-position:center top !important; -webkit-mask-image:none !important; mask-image:none !important; }
+    /* Cards 1 e 3 (fotos escuras): a mascara compartilhada comeca em 0
        (totalmente transparente) na borda esquerda, suavizando a transicao e
        eliminando qualquer degrau/risco vertical. */
-    .hero-slide[data-slide="0"] img, .hero-slide[data-slide="1"] img, .hero-slide[data-slide="2"] img {
+    .hero-slide[data-slide="0"] img, .hero-slide[data-slide="2"] img {
       -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
       mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
     }
@@ -583,10 +587,7 @@
         </picture>
       </div>
       <div class="hero-slide" data-slide="1" style="position:absolute; inset:0; opacity:0; transition:opacity .5s ease; display:flex; align-items:center; justify-content:center; background:#F7F7F5;">
-        <picture>
-          <source media="(min-width:641px)" srcset="assets/hero-formatura-escola.jpg">
-          <img src="assets/hero-formatura-escola-mobile.jpg" alt="Turma formada na Escola de Barbeiros New House" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:contain; object-position:center;">
-        </picture>
+        <img src="assets/hero-formatura-escola.jpg" alt="Turma formada na Escola de Barbeiros New House" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:contain; object-position:center;">
       </div>
       <div class="hero-slide" data-slide="2" style="position:absolute; inset:0; opacity:0; transition:opacity .5s ease; display:flex; align-items:center; justify-content:center; background:#F7F7F5;">
         <picture>
