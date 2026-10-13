@@ -760,7 +760,18 @@
   <div style="max-width:1180px; margin:0 auto; padding:64px 24px 0; display:flex; flex-wrap:wrap; gap:48px; align-items:center;">
 
     <div class="sobre-media reveal" style="flex:1 1 440px; min-width:300px; position:relative; aspect-ratio:3/4; overflow:hidden; background:#0C0D16;">
-      <img id="ozonio-foto" src="assets/sobre/vaporizador-ozonio.jpg" alt="Tratamento com vaporizador de ozônio para barba na New House Barber" loading="lazy" decoding="async" style="display:block; width:100%; height:100%; object-fit:contain; object-position:center; cursor:zoom-in;">
+      <div class="ozonio-slide" data-slide="0" style="position:absolute; inset:0; opacity:1; transition:opacity 1s ease;">
+        <img src="assets/sobre/vaporizador-ozonio.jpg" alt="Tratamento com vaporizador de ozônio para barba na New House Barber" loading="lazy" decoding="async" style="display:block; width:100%; height:100%; object-fit:contain; object-position:center; cursor:zoom-in;">
+      </div>
+      <div class="ozonio-slide" data-slide="1" style="position:absolute; inset:0; opacity:0; transition:opacity 1s ease;">
+        <img src="assets/sobre/ozonio-foto-2.jpg" alt="Atendimento com vaporizador de ozônio na New House Barber" loading="lazy" decoding="async" style="display:block; width:100%; height:100%; object-fit:contain; object-position:center; cursor:zoom-in;">
+      </div>
+      <div class="ozonio-slide" data-slide="2" style="position:absolute; inset:0; opacity:0; transition:opacity 1s ease;">
+        <img src="assets/sobre/ozonio-foto-3.jpg" alt="Atendimento com vaporizador de ozônio na New House Barber" loading="lazy" decoding="async" style="display:block; width:100%; height:100%; object-fit:contain; object-position:center; cursor:zoom-in;">
+      </div>
+      <div class="ozonio-slide" data-slide="3" style="position:absolute; inset:0; opacity:0; transition:opacity 1s ease;">
+        <img src="assets/sobre/ozonio-foto-4.jpg" alt="Atendimento com vaporizador de ozônio na New House Barber" loading="lazy" decoding="async" style="display:block; width:100%; height:100%; object-fit:contain; object-position:center; cursor:zoom-in;">
+      </div>
     </div>
 
     <div class="sobre-text reveal" style="flex:1.1 1 440px; min-width:300px;">
@@ -842,15 +853,46 @@
   </script>
 
   <script>
-    /* Lightbox simples para ampliar a foto do vaporizador de ozônio ao
-       clicar — fecha ao clicar fora da imagem ou com Esc. */
+    /* Carrossel da foto principal: a infografia do ozônio + as 3 fotos reais
+       do atendimento, trocando a cada 3s em loop contínuo (mesmo crossfade
+       por opacity já usado em outros carrosséis do site). pointer-events
+       garante que só a foto visível no momento responda ao clique. */
     (function(){
-      var foto = document.getElementById('ozonio-foto');
+      var slides = document.querySelectorAll('.ozonio-slide');
+      if(!slides.length) return;
+      var current = 0;
+      function activate(i){
+        current = (i + slides.length) % slides.length;
+        slides.forEach(function(s){
+          var active = (+s.dataset.slide === current);
+          s.style.opacity = active ? '1' : '0';
+          s.style.pointerEvents = active ? 'auto' : 'none';
+        });
+      }
+      activate(0);
+      setInterval(function(){ activate(current + 1); }, 3000);
+    })();
+  </script>
+
+  <script>
+    /* Lightbox simples para ampliar a foto do carrossel ao clicar — sempre
+       amplia a foto que estiver visível no momento. Fecha ao clicar fora
+       da imagem ou com Esc. */
+    (function(){
       var box = document.getElementById('ozonio-lightbox');
-      if(!foto || !box) return;
-      function open(){ box.style.display = 'flex'; box.setAttribute('aria-hidden','false'); document.body.style.overflow = 'hidden'; }
+      var boxImg = box ? box.querySelector('img') : null;
+      if(!box || !boxImg) return;
+      function open(src, alt){
+        boxImg.src = src;
+        boxImg.alt = alt;
+        box.style.display = 'flex';
+        box.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      }
       function close(){ box.style.display = 'none'; box.setAttribute('aria-hidden','true'); document.body.style.overflow = ''; }
-      foto.addEventListener('click', open);
+      document.querySelectorAll('.ozonio-slide img').forEach(function(img){
+        img.addEventListener('click', function(){ open(img.src, img.alt); });
+      });
       box.addEventListener('click', close);
       document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
     })();
