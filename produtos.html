@@ -61,6 +61,10 @@
   @media (max-width:900px){
     .intro-inner { padding-top:48px !important; padding-bottom:48px !important; }
   }
+  @media (max-width:640px){
+    .intro-inner { padding-bottom:24px !important; }
+    .grade-produtos-sec { padding-top:24px !important; }
+  }
 
   /* ===== Grade de produtos (mesmo padrão visual da vitrine da Home) =====
      object-fit:cover preenche a foto sem deformar; o grid mantém as linhas
@@ -82,6 +86,25 @@
   .produto-preco { display:flex; align-items:baseline; gap:9px; margin-top:10px; }
   .produto-preco-de { font-family:'Barlow',sans-serif; font-size:13px; color:#A9A9A7; text-decoration:line-through; }
   .produto-preco-por { font-family:'Oswald',sans-serif; font-weight:700; font-size:19px; color:#A9812F; }
+
+  /* Mobile (<=640px): 3 cards por fileira, mantendo todos os produtos — só a
+     grade some de auto-fit/minmax para 3 colunas fixas. Tipografia e
+     preenchimento reduzidos proporcionalmente para caber sem apertar nem
+     cortar texto; a descrição (texto mais longo) fica oculta visualmente
+     nesta largura — ela continua nos dados do produto e na mensagem do
+     WhatsApp, só não aparece no card. */
+  @media (max-width:640px){
+    .produtos-grid { grid-template-columns:repeat(3, 1fr); gap:9px; }
+    .produto-info { padding:8px 7px 10px; }
+    .produto-nome { font-size:9.5px; letter-spacing:0.3px; line-height:1.2; }
+    .produto-marca { font-size:7px; letter-spacing:0.6px; margin-top:2px; }
+    .produto-desc { display:none; }
+    .produto-preco-cat { font-size:10.5px; margin-top:6px; }
+    .produto-preco { gap:4px; margin-top:6px; flex-wrap:wrap; }
+    .produto-preco-de { font-size:8px; }
+    .produto-preco-por { font-size:11px; }
+    .produto-btn { font-size:7px; letter-spacing:0.3px; padding:6px 2px; margin-top:7px; line-height:1.3; }
+  }
 
   /* ===== Mini hero: vitrine automática de promoções =====
      Monta as telas em JS a partir dos próprios cards do catálogo (produtos
@@ -109,9 +132,43 @@
   .mini-promo-dots { display:flex; gap:6px; }
   .mini-promo-dot { width:7px; height:7px; border-radius:50%; background:#D8D8D6; border:none; padding:0; cursor:pointer; transition:background .3s ease, transform .3s ease; }
   .mini-promo-dot.active { background:#C9A227; transform:scale(1.3); }
-  @media (max-width:900px){
-    .intro-flex { flex-direction:column; align-items:flex-start; }
-    .mini-promo-wrap { align-self:center; margin-top:8px; }
+  @media (max-width:640px){
+    .intro-flex { flex-direction:column; align-items:flex-start; gap:16px; }
+    .intro-text { flex:0 0 auto; }
+    .mini-promo-wrap { align-self:center; margin-top:0; }
+  }
+  /* Tablet: hero promocional maior, ainda ao lado do texto (card vertical,
+     só com mais área para foto/preços/botão). */
+  @media (min-width:641px) and (max-width:900px){
+    .intro-text { flex-basis:300px; }
+    .mini-promo { width:320px; aspect-ratio:4/5; }
+    .mini-promo-info { padding:18px 20px 20px; }
+    .mini-promo-nome { font-size:16px; }
+    .mini-promo-marca { font-size:11px; }
+    .mini-promo-preco { margin-top:10px; }
+    .mini-promo-de { font-size:13px; }
+    .mini-promo-por { font-size:21px; }
+    .mini-promo-btn { font-size:11.5px; padding:11px; margin-top:12px; }
+    .mini-promo-badge { font-size:10.5px; padding:6px 11px; }
+  }
+  /* Desktop: o mini hero vira um banner horizontal (foto à esquerda, texto +
+     preços + botão à direita), ocupando bem mais largura/altura — presença
+     de hero de verdade, mesmas cores e tipografia do site. */
+  @media (min-width:901px){
+    .mini-promo-wrap { flex:1 1 380px; max-width:520px; width:100%; align-items:stretch; }
+    .mini-promo { width:100%; aspect-ratio:16/10; }
+    .mini-promo-slide { flex-direction:row; }
+    .mini-promo-photo { flex:0 0 46%; }
+    .mini-promo-info { flex:1 1 auto; min-width:0; display:flex; flex-direction:column; justify-content:center; padding:5.5% 6%; }
+    .mini-promo-nome { font-size:clamp(15px,1.9vw,20px); letter-spacing:0.5px; }
+    .mini-promo-marca { font-size:clamp(9.5px,1vw,12px); }
+    .mini-promo-preco { margin-top:clamp(8px,1.2vw,14px); gap:clamp(6px,1vw,11px); flex-wrap:wrap; }
+    .mini-promo-de { font-size:clamp(10.5px,1.1vw,14.5px); }
+    .mini-promo-por { font-size:clamp(17px,2.2vw,27px); }
+    .mini-promo-btn { font-size:clamp(9.5px,1vw,13px); padding:clamp(9px,1.3vw,14px) 6px; margin-top:clamp(10px,1.6vw,18px); white-space:nowrap; }
+    .mini-promo-badge { font-size:clamp(9.5px,1vw,11.5px); padding:clamp(5px,0.7vw,7px) clamp(9px,1.2vw,13px); top:clamp(10px,1.6vw,16px); left:clamp(10px,1.6vw,16px); }
+    .mini-promo-dots { gap:8px; }
+    .mini-promo-dot { width:8px; height:8px; }
   }
 
   /* ===== Transição de página (cortina) entre as páginas internas =====
@@ -189,7 +246,7 @@
   </section>
 
   <!-- ===== GRADE DE PRODUTOS ===== -->
-  <section class="reveal" style="background:#FFFFFF; padding:56px 0 80px;">
+  <section class="reveal grade-produtos-sec" style="background:#FFFFFF; padding:56px 0 80px;">
     <div style="max-width:1180px; margin:0 auto; padding:0 24px;">
       <div class="produtos-grid">
 
