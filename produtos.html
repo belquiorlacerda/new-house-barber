@@ -83,6 +83,37 @@
   .produto-preco-de { font-family:'Barlow',sans-serif; font-size:13px; color:#A9A9A7; text-decoration:line-through; }
   .produto-preco-por { font-family:'Oswald',sans-serif; font-weight:700; font-size:19px; color:#A9812F; }
 
+  /* ===== Mini hero: vitrine automática de promoções =====
+     Monta as telas em JS a partir dos próprios cards do catálogo (produtos
+     com preço DE/POR) — nenhuma lista de promoções é mantida manualmente
+     aqui. Troca a cada 2s com fade suave; pausa em hover/foco e com
+     prefers-reduced-motion. */
+  .intro-flex { display:flex; align-items:center; justify-content:space-between; gap:40px; flex-wrap:wrap; }
+  .intro-text { min-width:0; flex:1 1 380px; }
+  .mini-promo-wrap { flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .mini-promo { position:relative; width:260px; max-width:100%; aspect-ratio:3/4; border:1px solid #E4E4E2; background:#FFFFFF; overflow:hidden; box-shadow:0 20px 40px -24px rgba(0,0,0,0.25); }
+  .mini-promo-slide { position:absolute; inset:0; opacity:0; pointer-events:none; transition:opacity .6s ease; display:flex; flex-direction:column; }
+  .mini-promo-slide.active { opacity:1; pointer-events:auto; }
+  .mini-promo-photo { position:relative; flex:1 1 auto; overflow:hidden; background:#F2F2F0; }
+  .mini-promo-photo img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+  .mini-promo-badge { position:absolute; top:10px; left:10px; z-index:2; background:#C9A227; color:#1A1508; font-family:'Oswald',sans-serif; font-weight:700; font-size:10px; letter-spacing:1.2px; text-transform:uppercase; padding:5px 10px; }
+  .mini-promo-info { padding:14px 16px 16px; background:#FFFFFF; }
+  .mini-promo-nome { font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:0.5px; text-transform:uppercase; color:#141414; }
+  .mini-promo-marca { font-family:'Oswald',sans-serif; font-size:10px; letter-spacing:1.6px; text-transform:uppercase; color:#A9812F; margin-top:3px; }
+  .mini-promo-preco { display:flex; align-items:baseline; gap:8px; margin-top:8px; }
+  .mini-promo-de { font-family:'Barlow',sans-serif; font-size:12px; color:#A9A9A7; text-decoration:line-through; }
+  .mini-promo-por { font-family:'Oswald',sans-serif; font-weight:700; font-size:17px; color:#A9812F; }
+  .mini-promo-btn, .mini-promo-btn:hover, .mini-promo-btn:visited { color:#FFFFFF; }
+  .mini-promo-btn { display:block; text-align:center; margin-top:10px; font-family:'Oswald',sans-serif; font-weight:600; font-size:10.5px; letter-spacing:1.1px; text-transform:uppercase; padding:9px; background:#141414; transition:background .3s ease; }
+  .mini-promo-btn:hover { background:#C9A227; }
+  .mini-promo-dots { display:flex; gap:6px; }
+  .mini-promo-dot { width:7px; height:7px; border-radius:50%; background:#D8D8D6; border:none; padding:0; cursor:pointer; transition:background .3s ease, transform .3s ease; }
+  .mini-promo-dot.active { background:#C9A227; transform:scale(1.3); }
+  @media (max-width:900px){
+    .intro-flex { flex-direction:column; align-items:flex-start; }
+    .mini-promo-wrap { align-self:center; margin-top:8px; }
+  }
+
   /* ===== Transição de página (cortina) entre as páginas internas =====
      Mesmo efeito já usado entre a Home e a Escola de Barbeiros: painel
      fixo que cobre a tela ao navegar e depois sobe revelando a nova
@@ -143,10 +174,16 @@
         <a href="escola-de-barbeiros.html">Escola</a>
         <a href="https://chat.whatsapp.com/LxnzJGMdPTo1pbNoj823ME" target="_blank" rel="noopener noreferrer">Comunidade</a>
       </nav>
-      <div style="max-width:680px;">
-        <div style="font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:3.5px; text-transform:uppercase; color:#8C8C8C; margin-bottom:16px;">New House • Produtos</div>
-        <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(34px,5.5vw,58px); line-height:1.02; letter-spacing:0.5px; text-transform:uppercase; color:#141414;">Catálogo de Produtos</h1>
-        <p style="font-family:'Barlow',sans-serif; font-size:16px; color:#5A5A5A; margin-top:18px; max-width:560px; line-height:1.7;">Os produtos que fazem parte da experiência New House.</p>
+      <div class="intro-flex">
+        <div class="intro-text" style="max-width:680px;">
+          <div style="font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:3.5px; text-transform:uppercase; color:#8C8C8C; margin-bottom:16px;">New House • Produtos</div>
+          <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(34px,5.5vw,58px); line-height:1.02; letter-spacing:0.5px; text-transform:uppercase; color:#141414;">Catálogo de Produtos</h1>
+          <p style="font-family:'Barlow',sans-serif; font-size:16px; color:#5A5A5A; margin-top:18px; max-width:560px; line-height:1.7;">Os produtos que fazem parte da experiência New House.</p>
+        </div>
+        <div class="mini-promo-wrap" id="miniPromoWrap">
+          <div class="mini-promo" id="miniPromo"></div>
+          <div class="mini-promo-dots" id="miniPromoDots"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -156,7 +193,7 @@
     <div style="max-width:1180px; margin:0 auto; padding:0 24px;">
       <div class="produtos-grid">
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Shampoo","marca":"YGGI For Men","desc":"Óleo de Girassol · Hidratante · Limpeza suave · Sem sal","volume":"250ml","preco":"R$ 89,90"}'>
           <div class="produto-photo"><img src="assets/produtos/yggi-shampoo.jpg" alt="Shampoo, YGGI For Men" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Shampoo</div>
@@ -169,7 +206,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Leave-in","marca":"YGGI For Men","desc":"Hidratação · Proteção térmica · Controle de frizz","volume":"200ml","de":"R$ 99,90","por":"R$ 79,90"}'>
           <div class="produto-photo"><img src="assets/produtos/yggi-leavein.jpg" alt="Leave-in, YGGI For Men" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Leave-in</div>
@@ -182,7 +219,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Máscara Hidratante","marca":"YGGI","desc":"Manteiga de Karité · Óleo de Argan","volume":"250ml","preco":"R$ 89,90"}'>
           <div class="produto-photo"><img src="assets/produtos/yggi-mascara-hidratante.jpg" alt="Máscara Hidratante, YGGI" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Máscara Hidratante</div>
@@ -195,7 +232,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Recovery","marca":"YGGI For Men","desc":"Reconstrução imediata · Recuperação intensa para cabelos danificados","volume":"200ml","preco":"R$ 69,90"}'>
           <div class="produto-photo"><img src="assets/produtos/yggi-recovery.jpg" alt="Recovery, YGGI For Men" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Recovery</div>
@@ -208,7 +245,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Óleo Barber","marca":"YGGI For Men","desc":"Barba e cabelo","volume":"30ml","preco":"R$ 49,90"}'>
           <div class="produto-photo"><img src="assets/produtos/yggi-oleo-barber.jpg" alt="Óleo Barber, YGGI For Men" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Óleo Barber</div>
@@ -221,7 +258,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Balm Barber","marca":"YGGI For Men","desc":"Hidrata e perfuma · Disciplina, maciez, anti-frizz","volume":"140ml","preco":"R$ 59,90"}'>
           <div class="produto-photo"><img src="assets/produtos/yggi-balm-barber.jpg" alt="Balm Barber, YGGI For Men" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Balm Barber</div>
@@ -234,7 +271,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Shampoo Anticaspa","marca":"YGGI For Men","desc":"Vital Scalp Balance · Previne e trata a caspa sem ressecar os fios","volume":"300ml","preco":"R$ 69,90"}'>
           <div class="produto-photo"><img src="assets/produtos/yggi-anticaspa.jpg" alt="Shampoo Anticaspa, YGGI For Men" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Shampoo Anticaspa</div>
@@ -247,7 +284,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Pó Modelador","marca":"YGGI For Men","desc":"Texturizador · Efeito seco","volume":"10g","preco":"R$ 69,90"}'>
           <div class="produto-photo"><img src="assets/produtos/yggi-po-modelador.jpg" alt="Pó Modelador, YGGI For Men" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Pó Modelador</div>
@@ -258,7 +295,7 @@
           </div>
         </div>
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Fresh Action","marca":"JORU Cosmetics","desc":"Shampoo · Mentol + Café · Ação refrescante","volume":"260ml","de":"R$ 99,90","por":"R$ 59,90"}'>
           <div class="produto-photo"><img src="assets/produtos/joru-fresh-action-shampoo.jpg" alt="Shampoo Fresh Action, JORU Cosmetics" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Fresh Action</div>
@@ -271,7 +308,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Hydra Action","marca":"JORU Cosmetics","desc":"Shampoo · Óleos nobres · Queratina hidrolisada","volume":"260ml","de":"R$ 99,90","por":"R$ 59,90"}'>
           <div class="produto-photo"><img src="assets/produtos/joru-hydra-action-shampoo.jpg" alt="Shampoo Hydra Action, JORU Cosmetics" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Hydra Action</div>
@@ -284,7 +321,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Hydra Action","marca":"JORU Cosmetics","desc":"Máscara · Glicerina + Manteiga de Karité · Óleos nobres","de":"R$ 129,90","por":"R$ 77,90"}'>
           <div class="produto-photo"><img src="assets/produtos/joru-hydra-action-mascara.jpg" alt="Máscara Hydra Action, JORU Cosmetics" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Hydra Action</div>
@@ -297,7 +334,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Nutri Action","marca":"JORU Cosmetics","desc":"Shampoo · Queratina hidrolisada · Proteína do trigo · Força e resistência","volume":"260ml","de":"R$ 99,90","por":"R$ 59,90"}'>
           <div class="produto-photo"><img src="assets/produtos/joru-nutri-action-shampoo.jpg" alt="Shampoo Nutri Action, JORU Cosmetics" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Nutri Action</div>
@@ -310,7 +347,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Nutri Action","marca":"JORU Cosmetics","desc":"Protetor térmico · Pantenol · Vitamina E · Complexo de brilho","volume":"260ml","de":"R$ 149,90","por":"R$ 89,90"}'>
           <div class="produto-photo"><img src="assets/produtos/joru-nutri-action-protetor-termico.jpg" alt="Protetor Térmico Nutri Action, JORU Cosmetics" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Nutri Action</div>
@@ -323,7 +360,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Nutri Action","marca":"JORU Cosmetics","desc":"Máscara · Queratina hidrolisada · Proteína do trigo · Nutrição intensiva","volume":"300g","de":"R$ 129,90","por":"R$ 77,90"}'>
           <div class="produto-photo"><img src="assets/produtos/joru-nutri-action-mascara.jpg" alt="Máscara Nutri Action, JORU Cosmetics" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Nutri Action</div>
@@ -336,7 +373,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Balm para Barba Midtown","marca":"B.URB","desc":"Contém proteção térmica e solar","volume":"140ml","preco":"R$ 69,90"}'>
           <div class="produto-photo"><img src="assets/produtos/burb-balm-barba.jpg" alt="Balm para Barba Midtown, B.URB" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Balm para Barba Midtown</div>
@@ -349,7 +386,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Balm Barba e Bigode","marca":"Garden For Men","desc":"Macadâmia · Anti-frizz · Umectação","volume":"140g","preco":"R$ 79,90"}'>
           <div class="produto-photo"><img src="assets/produtos/garden-balm-barba-bigode.jpg" alt="Balm para Barba e Bigode Macadâmia, Garden For Men" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Balm Barba e Bigode</div>
@@ -362,7 +399,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Ceras e Cremes Modeladores","marca":"FOX For Men","desc":"Linha UVA, Caramelo, Pistache e Pasta Premium","volume":"80g cada","preco":"R$ 29,90"}'>
           <div class="produto-photo"><img src="assets/produtos/fox-ceras.jpg" alt="Linha de ceras e cremes modeladores, FOX For Men" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Ceras e Cremes Modeladores</div>
@@ -375,7 +412,7 @@
 
         
 
-        <div class="produto-card reveal">
+        <div class="produto-card reveal" data-produto='{"nome":"Cera de Abelha","marca":"Cera Modeladora","desc":"Fixação moderada · Brilho suave","volume":"120g","preco":"R$ 79,90"}'>
           <div class="produto-photo"><img src="assets/produtos/cera-de-abelha.jpg" alt="Cera de Abelha, cera modeladora" loading="lazy" decoding="async"></div>
           <div class="produto-info">
             <div class="produto-nome">Cera de Abelha</div>
@@ -472,6 +509,110 @@
         smoothScrollTo(y, 600);
       });
     });
+  })();
+</script>
+<script>
+  /* ===== Mensagens personalizadas do WhatsApp + mini hero de promoções =====
+     Fonte única de dados: o atributo data-produto de cada .produto-card
+     (mesmos nome/marca/descrição/volume/preços já exibidos no card — nada
+     é inventado nem duplicado em outra lista). Uma única função monta a
+     mensagem, reaproveitada tanto pelos botões "Tenho interesse" de todos
+     os produtos quanto pelo botão do mini hero de promoções. */
+  (function(){
+    var WHATSAPP_NUM = '5517997550146';
+
+    function buildMessage(p){
+      var linhas = ['Olá! Vim pelo site da New House Barber e tenho interesse no seguinte produto:'];
+      linhas.push('Produto: ' + p.nome);
+      linhas.push('Marca: ' + p.marca);
+      linhas.push('Descrição: ' + p.desc);
+      if (p.volume) linhas.push('Volume: ' + p.volume);
+      if (p.por) {
+        linhas.push('De: ' + p.de);
+        linhas.push('Por: ' + p.por);
+      } else {
+        linhas.push('Valor: ' + p.preco);
+      }
+      linhas.push(p.por ? 'Gostaria de aproveitar essa promoção e saber mais informações!' : 'Gostaria de saber mais informações sobre esse produto!');
+      return linhas.join('\n');
+    }
+
+    function waLink(p){
+      return 'https://wa.me/' + WHATSAPP_NUM + '?text=' + encodeURIComponent(buildMessage(p));
+    }
+
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.produto-card[data-produto]'));
+    var produtos = [];
+    cards.forEach(function(el){
+      var data;
+      try { data = JSON.parse(el.getAttribute('data-produto')); } catch(e){ return; }
+      var btn = el.querySelector('.produto-btn');
+      if (btn) btn.setAttribute('href', waLink(data));
+      var img = el.querySelector('.produto-photo img');
+      produtos.push({ data: data, img: img });
+    });
+
+    /* ----- Mini hero: vitrine automática de promoções ----- */
+    var wrap = document.getElementById('miniPromoWrap');
+    var track = document.getElementById('miniPromo');
+    var dotsWrap = document.getElementById('miniPromoDots');
+    if (!wrap || !track) return;
+
+    var promos = produtos.filter(function(p){ return !!p.data.por; });
+    if (promos.length === 0) { wrap.style.display = 'none'; return; }
+
+    promos.forEach(function(p, i){
+      var slide = document.createElement('div');
+      slide.className = 'mini-promo-slide' + (i === 0 ? ' active' : '');
+      slide.innerHTML =
+        '<div class="mini-promo-photo"><span class="mini-promo-badge">Promoção</span><img loading="lazy" decoding="async"></div>' +
+        '<div class="mini-promo-info">' +
+          '<div class="mini-promo-nome"></div>' +
+          '<div class="mini-promo-marca"></div>' +
+          '<div class="mini-promo-preco"><span class="mini-promo-de"></span><span class="mini-promo-por"></span></div>' +
+          '<a class="mini-promo-btn" target="_blank" rel="noopener">Aproveitar promoção</a>' +
+        '</div>';
+      var img = slide.querySelector('.mini-promo-photo img');
+      img.src = p.img ? p.img.getAttribute('src') : '';
+      img.alt = p.data.nome + ', ' + p.data.marca;
+      slide.querySelector('.mini-promo-nome').textContent = p.data.nome;
+      slide.querySelector('.mini-promo-marca').textContent = p.data.marca;
+      slide.querySelector('.mini-promo-de').textContent = 'De ' + p.data.de;
+      slide.querySelector('.mini-promo-por').textContent = p.data.por;
+      slide.querySelector('.mini-promo-btn').setAttribute('href', waLink(p.data));
+      track.appendChild(slide);
+    });
+
+    var slides = track.querySelectorAll('.mini-promo-slide');
+
+    if (slides.length > 1) {
+      slides.forEach(function(s, i){
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'mini-promo-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Promoção ' + (i + 1) + ' de ' + slides.length);
+        dotsWrap.appendChild(dot);
+      });
+      var dots = dotsWrap.querySelectorAll('.mini-promo-dot');
+      var current = 0, timer;
+      function show(i){
+        current = i;
+        slides.forEach(function(s, idx){ s.classList.toggle('active', idx === i); });
+        dots.forEach(function(d, idx){ d.classList.toggle('active', idx === i); });
+      }
+      function next(){ show((current + 1) % slides.length); }
+      var reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function start(){ if (reduceMotion) return; stop(); timer = setInterval(next, 2000); }
+      function stop(){ if (timer) clearInterval(timer); }
+      dots.forEach(function(d, i){
+        d.addEventListener('click', function(){ show(i); start(); });
+      });
+      wrap.addEventListener('mouseenter', stop);
+      wrap.addEventListener('mouseleave', start);
+      wrap.addEventListener('focusin', stop);
+      wrap.addEventListener('focusout', start);
+      start();
+    }
   })();
 </script>
 <script>
