@@ -363,6 +363,14 @@
       background:rgba(0,0,0,0.32);
       pointer-events:none;
     }
+    /* Os 4 cards: a foto de cada slide fica mais baixa que a altura total do
+       card (texto + botões deixam o hero bem mais alto que a própria foto),
+       e com align-items:center (herdado do desktop) ela ficava centralizada
+       nesse espaço todo — sobrando uma faixa em branco ACIMA da foto, bem
+       atrás do título, em vez da foto começar logo no topo do card (onde
+       o título visualmente começa). Ancorar no topo fecha esse vão nos 4
+       cards, sem alterar enquadramento/corte de nenhuma foto. */
+    .hero-slide { align-items:flex-start !important; }
     /* Cards 1 e 2 (foto nova do corte + os dois barbeiros — ambas fotos
        horizontais 16:9): renderizados ACIMA das camadas brancas
        compartilhadas (legacy-fade + veu da media-col) via z-index, e com um
@@ -571,7 +579,6 @@
             <p style="font-family:'Barlow',sans-serif; font-size:16px; color:#5A5A5A; margin-top:20px; max-width:400px; line-height:1.6;">Experiência premium em cortes, barba e cuidados masculinos.</p>
             <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:32px;">
               <a href="https://wa.me/5517997550146?text=Quero%20agendar%20um%20hor%C3%A1rio%2C%20vim%20pelo%20site." target="_blank" rel="noopener" class="hero-btn" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:#FFFFFF; font-family:'Oswald',sans-serif; font-weight:600; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; padding:15px 28px;">Agendar Horário <span>→</span></a>
-              <a href="#servicos" class="hero-btn" style="display:inline-flex; align-items:center; gap:10px; border:1px solid #141414; color:#141414; font-family:'Oswald',sans-serif; font-weight:500; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; padding:15px 28px;">Ver Serviços</a>
             </div>
           </div>
           <div class="hero-panel" data-panel="2" style="grid-area:1 / 1; opacity:0; pointer-events:none; transition:opacity .5s ease;">
