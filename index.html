@@ -395,13 +395,12 @@
        (centralizado verticalmente no card, com o menu livre em cima), e
        "cover" preenche essa mesma area cortando so as laterais da foto, sem
        deformar. Cards 3 e 4 continuam exatamente como estavam, inalterados. */
-    .hero-slide[data-slide="0"] picture, .hero-slide[data-slide="0"] img,
-    .hero-slide[data-slide="1"] picture, .hero-slide[data-slide="1"] img {
+    .hero-slide picture, .hero-slide img {
       display:block !important;
       width:100% !important;
       height:100% !important;
     }
-    .hero-slide[data-slide="0"] img, .hero-slide[data-slide="1"] img { object-fit:cover !important; object-position:center !important; }
+    .hero-slide img { object-fit:cover !important; object-position:center !important; }
     .hero-content { position:relative !important; z-index:2 !important; }
     .hero-stats { position:relative !important; z-index:2 !important; }
 
