@@ -119,6 +119,23 @@
   .feat-card .feat-icon { transition:transform .35s ease; }
   .feat-card:hover .feat-icon { transform:scale(1.08); }
 
+  /* ===== "Experiências da Aula" — vídeos (mesmo formato da seção
+     "Experiência New House" do vaporizador de ozônio na Home): grade de
+     cards verticais, vídeo mudo em loop como pré-visualização. 4 vídeos
+     aqui em vez de 3, então o grid usa 4 colunas no desktop. */
+  .aula-videos-row { display:grid; grid-template-columns:repeat(4, 1fr); gap:18px; }
+  .aula-video-card { position:relative; aspect-ratio:9/16; overflow:hidden; border-radius:8px; background:#141414; border:1px solid #E4E4E2; transition:transform .4s ease, box-shadow .4s ease; }
+  .aula-video-card:hover { transform:translateY(-5px); box-shadow:0 16px 30px -18px rgba(0,0,0,.35); }
+  .aula-video-card video { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+  @media (prefers-reduced-motion: reduce){ .aula-video-card { transition:none; } .aula-video-card:hover { transform:none; } }
+  @media (max-width:760px){
+    .aula-videos-row { display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:8px; }
+    .aula-video-card { flex:0 0 150px; }
+  }
+  @media (min-width:761px) and (max-width:1000px){
+    .aula-videos-row { grid-template-columns:repeat(2, 1fr); }
+  }
+
   /* Sequência "cortar → atender → ..." — onda sutil de luz dourada percorrendo
      os itens, transmitindo evolução/movimento, em loop. */
   .seq-item { color:#9A9A9C; animation:seqGlow 8s ease-in-out infinite; }
@@ -265,8 +282,39 @@
           </div>
         </div>
       </div>
+
+      <!-- ===== Experiências da Aula — vídeos (mesmo formato da seção
+           "Experiência New House" do vaporizador de ozônio na Home): as
+           fotos acima continuam passando normalmente no carrossel; aqui
+           embaixo entram os vídeos como conteúdo complementar. ===== -->
+      <div style="margin-top:56px;">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:30px;">
+          <span style="height:1px; width:46px; background:#DADAD8;"></span>
+          <h2 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:22px; letter-spacing:3px; text-transform:uppercase; color:#141414;">Experiências da Aula</h2>
+        </div>
+        <div class="aula-videos-row reveal">
+          <div class="aula-video-card"><video src="assets/escola/aula-video-1.mp4" muted loop autoplay playsinline preload="auto"></video></div>
+          <div class="aula-video-card"><video src="assets/escola/aula-video-2.mp4" muted loop autoplay playsinline preload="auto"></video></div>
+          <div class="aula-video-card"><video src="assets/escola/aula-video-3.mp4" muted loop autoplay playsinline preload="auto"></video></div>
+          <div class="aula-video-card"><video src="assets/escola/aula-video-4.mp4" muted loop autoplay playsinline preload="auto"></video></div>
+        </div>
+      </div>
     </div>
   </section>
+
+  <script>
+    /* Vídeos de "Experiências da Aula": silenciosos, em loop, sem
+       controles — apenas pré-visualização em movimento. Dispara o play via
+       JS (mesmo padrão já usado na Home), pois o atributo autoplay sozinho
+       é pouco confiável. */
+    (function(){
+      document.querySelectorAll('.aula-video-card video').forEach(function(vid){
+        function tryPlay(){ var p = vid.play(); if(p && p.catch) p.catch(function(){}); }
+        if(vid.readyState >= 2){ tryPlay(); }
+        else { vid.addEventListener('canplay', tryPlay, { once:true }); }
+      });
+    })();
+  </script>
 
   <script>
     /* Carrossel automático das fotos da Escola ("O que você vai aprender"):
