@@ -79,6 +79,28 @@
   .produto-photo { position:relative; aspect-ratio:4/5; overflow:hidden; background:#F2F2F0; }
   .produto-photo img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
   .produto-badge-bf { position:absolute; top:10px; left:10px; z-index:2; background:#141414; color:#C9A227; font-family:'Oswald',sans-serif; font-weight:700; font-size:10px; letter-spacing:1.2px; text-transform:uppercase; padding:5px 10px; border:1px solid #C9A227; }
+
+  /* Faixa Black Friday no topo: texto deslizando em loop continuo. */
+  .bf-ribbon-track {
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+    padding:9px 0; width:max-content;
+    animation:bf-marquee 22s linear infinite;
+  }
+  .bf-ribbon-track span {
+    font-family:'Oswald',sans-serif; font-weight:600; font-size:12px; letter-spacing:2px;
+    text-transform:uppercase; color:#E9CE83; display:inline-flex; align-items:center; gap:48px;
+  }
+  @keyframes bf-marquee { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .bf-ribbon-track { animation:none; } }
+
+  /* Banner principal da Black Friday (na grade de produtos): brilho pulsante
+     na borda, para chamar atencao sem poluir o layout. */
+  .bf-banner-glow { animation:bf-glow 2.6s ease-in-out infinite; }
+  @keyframes bf-glow {
+    0%, 100% { box-shadow:0 0 0 1px rgba(201,162,39,.35), 0 0 22px rgba(201,162,39,.12); }
+    50% { box-shadow:0 0 0 1px rgba(201,162,39,.75), 0 0 34px rgba(201,162,39,.3); }
+  }
+  @media (prefers-reduced-motion: reduce) { .bf-banner-glow { animation:none; box-shadow:0 0 0 1px rgba(201,162,39,.5); } }
   .produto-info { padding:18px 18px 22px; flex:1; }
   .produto-nome { font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:1px; text-transform:uppercase; color:#141414; }
   .produto-marca { font-family:'Oswald',sans-serif; font-size:10.5px; letter-spacing:1.8px; text-transform:uppercase; color:#A9812F; margin-top:4px; }
@@ -86,6 +108,8 @@
   .produto-btn, .produto-btn:hover, .produto-btn:visited { color:#FFFFFF; }
   .produto-btn { display:block; text-align:center; margin-top:14px; font-family:'Oswald',sans-serif; font-weight:600; font-size:11.5px; letter-spacing:1.3px; text-transform:uppercase; padding:11px; background:#141414; transition:background .3s ease; }
   .produto-btn:hover { background:#C9A227; }
+  .produto-card:has(.produto-badge-bf) .produto-btn, .produto-card:has(.produto-badge-bf) .produto-btn:visited { background:#C9A227; color:#1A1508; }
+  .produto-card:has(.produto-badge-bf) .produto-btn:hover { background:#141414; color:#C9A227; }
   .produto-preco-cat { font-family:'Oswald',sans-serif; font-weight:700; font-size:17px; color:#141414; margin-top:10px; }
   .produto-preco { display:flex; align-items:baseline; gap:9px; margin-top:10px; }
   .produto-preco-de { font-family:'Barlow',sans-serif; font-size:13px; color:#A9A9A7; text-decoration:line-through; }
@@ -198,6 +222,20 @@
 <div style="background:#FFFFFF;">
   <div class="pt-overlay" aria-hidden="true"></div>
 
+  <!-- ===== FAIXA BLACK FRIDAY ===== -->
+  <div class="bf-ribbon" style="background:#0C0C0C; overflow:hidden; position:relative;">
+    <div class="bf-ribbon-track">
+      <span>★ BLACK FRIDAY NEW HOUSE</span>
+      <span>ATÉ 30% OFF EM JORU &amp; YGGI</span>
+      <span>★ BLACK FRIDAY NEW HOUSE</span>
+      <span>ATÉ 30% OFF EM JORU &amp; YGGI</span>
+      <span>★ BLACK FRIDAY NEW HOUSE</span>
+      <span>ATÉ 30% OFF EM JORU &amp; YGGI</span>
+      <span>★ BLACK FRIDAY NEW HOUSE</span>
+      <span>ATÉ 30% OFF EM JORU &amp; YGGI</span>
+    </div>
+  </div>
+
   <!-- ===== HEADER ===== -->
   <header id="topo" style="background:#FFFFFF; border-bottom:1px solid #E4E4E2;">
     <div class="header-row" style="max-width:1180px; margin:0 auto; padding:16px 24px 18px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:20px;">
@@ -239,9 +277,9 @@
       </nav>
       <div class="intro-flex">
         <div class="intro-text" style="max-width:680px;">
-          <div style="font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:3.5px; text-transform:uppercase; color:#8C8C8C; margin-bottom:16px;">New House • Produtos</div>
+          <div style="display:inline-flex; align-items:center; gap:9px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:#A9812F; margin-bottom:16px; background:#141414; padding:6px 13px;">★ Black Friday · Até 30% OFF</div>
           <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(34px,5.5vw,58px); line-height:1.02; letter-spacing:0.5px; text-transform:uppercase; color:#141414;">Catálogo de Produtos</h1>
-          <p style="font-family:'Barlow',sans-serif; font-size:16px; color:#5A5A5A; margin-top:18px; max-width:560px; line-height:1.7;">Os produtos que fazem parte da experiência New House.</p>
+          <p style="font-family:'Barlow',sans-serif; font-size:16px; color:#5A5A5A; margin-top:18px; max-width:560px; line-height:1.7;">Os produtos que fazem parte da experiência New House — com descontos especiais de Black Friday em JORU e YGGI.</p>
         </div>
         <div class="mini-promo-wrap" id="miniPromoWrap">
           <div class="mini-promo" id="miniPromo"></div>
@@ -255,7 +293,7 @@
   <section class="reveal grade-produtos-sec" style="background:#FFFFFF; padding:56px 0 80px;">
     <div style="max-width:1180px; margin:0 auto; padding:0 24px;">
 
-      <div style="background:#0C0C0C; padding:26px 30px; display:flex; align-items:center; justify-content:space-between; gap:20px 26px; flex-wrap:wrap; margin-bottom:44px; position:relative; overflow:hidden;">
+      <div class="bf-banner-glow" style="background:#0C0C0C; padding:26px 30px; display:flex; align-items:center; justify-content:space-between; gap:20px 26px; flex-wrap:wrap; margin-bottom:44px; position:relative; overflow:hidden;">
         <div style="position:absolute; inset:0; background:radial-gradient(circle at 85% 50%, rgba(201,162,39,0.16), transparent 55%);"></div>
         <div style="position:relative; z-index:2;">
           <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(18px,2.6vw,24px); letter-spacing:1px; text-transform:uppercase; color:#FFFFFF; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">Black Friday <span style="color:#C9A227;">30% OFF</span> <span style="font-family:'Oswald',sans-serif; font-size:10.5px; letter-spacing:1.5px; text-transform:uppercase; background:#C9A227; color:#1A1508; padding:4px 11px; font-weight:600;">JORU &amp; YGGI</span></div>
