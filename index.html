@@ -186,6 +186,20 @@
      preserva a arte inteira em qualquer largura (mobile, tablet, desktop),
      com a propria cor de fundo do slide preenchendo as sobras. */
   .hero-slide[data-slide="0"] img { object-fit:contain !important; }
+  /* Card 0 (Black Friday) em tablet/desktop: a arte e paisagem (1672x941)
+     mas o card do hero e bem mais alto que largo em varias larguras,
+     entao "contain" sobrava uma faixa vazia em cima/embaixo da imagem
+     (visivel como uma tarja cinza separada da arte). Em vez de esticar o
+     card inteiro, redimensiona so esse slide para a propria proporcao da
+     arte, centralizado verticalmente - a imagem preenche o proprio card
+     ponta a ponta, sem faixas e sem cortar as laterais. Mobile continua
+     com o comportamento cheio (cover), inalterado. */
+  @media (min-width:641px){
+    .hero-slide[data-slide="0"] {
+      top:50% !important; bottom:auto !important; height:auto !important;
+      aspect-ratio:1672/941; transform:translateY(-50%);
+    }
+  }
   @media (min-width:901px) and (max-width:1099px){
     .hero-media-col { left:calc(24px + 340px + 1cm) !important; }
   }
