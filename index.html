@@ -218,6 +218,19 @@
     .shimmer-text { animation:none; background:none; -webkit-text-fill-color:#141414; color:#141414; }
   }
 
+  /* Faixa Black Friday no topo: texto deslizando em loop continuo. */
+  .bf-ribbon-track {
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+    padding:9px 0; width:max-content;
+    animation:bf-marquee 22s linear infinite;
+  }
+  .bf-ribbon-track span {
+    font-family:'Oswald',sans-serif; font-weight:600; font-size:12px; letter-spacing:2px;
+    text-transform:uppercase; color:#E9CE83; display:inline-flex; align-items:center; gap:48px;
+  }
+  @keyframes bf-marquee { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .bf-ribbon-track { animation:none; } }
+
   /* Secao "Escola de Barbeiros" (apresentacao na home): 2 colunas no desktop
      (texto | area de fotos), empilhadas no mobile. Area de fotos e um
      placeholder elegante, pronto para receber imagens reais depois. */
@@ -525,6 +538,20 @@
 <body>
 <div style="background:#FFFFFF;">
   <div class="pt-overlay" aria-hidden="true"></div>
+
+  <!-- ===== FAIXA BLACK FRIDAY ===== -->
+  <div class="bf-ribbon" style="background:#0C0C0C; overflow:hidden; position:relative;">
+    <div class="bf-ribbon-track">
+      <span>★ BLACK FRIDAY NEW HOUSE</span>
+      <span>ATÉ 30% OFF EM JORU &amp; YGGI</span>
+      <span>★ BLACK FRIDAY NEW HOUSE</span>
+      <span>ATÉ 30% OFF EM JORU &amp; YGGI</span>
+      <span>★ BLACK FRIDAY NEW HOUSE</span>
+      <span>ATÉ 30% OFF EM JORU &amp; YGGI</span>
+      <span>★ BLACK FRIDAY NEW HOUSE</span>
+      <span>ATÉ 30% OFF EM JORU &amp; YGGI</span>
+    </div>
+  </div>
 
   <!-- ===== HEADER ===== -->
   <header id="topo" style="background:#FFFFFF; border-bottom:1px solid #E4E4E2;">
