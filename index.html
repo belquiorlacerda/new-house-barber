@@ -372,6 +372,12 @@
        cards, sem alterar enquadramento/corte de nenhuma foto. */
     .hero-slide { align-items:flex-start !important; }
     .hero-slide[data-slide="0"] { background:#121212 !important; }
+    /* Card 1 (Black Friday): no mobile, o painel de texto (hero-panel) ja
+       mostra "BLACK FRIDAY 30% OFF" sobreposto a arte, igual aos outros
+       cards. Esconder o bloco "30%/OFF" proprio da arte evita duplicar a
+       mesma informacao duas vezes na tela, deixando so as fotos dos
+       produtos como fundo, como nos demais cards. */
+    .bf-art-text { display:none !important; }
     /* Cards 1 e 2 (foto nova do corte + os dois barbeiros — ambas fotos
        horizontais 16:9): renderizados ACIMA das camadas brancas
        compartilhadas (legacy-fade + veu da media-col) via z-index, e com um
@@ -625,7 +631,7 @@
           <div style="position:absolute; top:8%; right:6%; width:150px; height:150px; border-radius:10px; background-image:url('assets/produtos/yggi-oleo-barber.jpg'); background-size:cover; background-position:center; opacity:.55; filter:grayscale(.25) brightness(.85);"></div>
           <div style="position:absolute; bottom:8%; left:44%; width:150px; height:150px; border-radius:10px; background-image:url('assets/produtos/joru-hydra-action-mascara.jpg'); background-size:cover; background-position:center; opacity:.5; filter:grayscale(.25) brightness(.85);"></div>
           <div style="position:absolute; bottom:7%; right:7%; width:165px; height:165px; border-radius:10px; background-image:url('assets/produtos/yggi-balm-barber.jpg'); background-size:cover; background-position:center; opacity:.5; filter:grayscale(.25) brightness(.85);"></div>
-          <div style="position:relative; z-index:2; background:rgba(14,14,13,.72); padding:34px 46px; border-radius:6px; backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);">
+          <div class="bf-art-text" style="position:relative; z-index:2; background:rgba(14,14,13,.72); padding:34px 46px; border-radius:6px; backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);">
             <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(90px,13vw,160px); letter-spacing:1px; color:#C9A227; line-height:0.9;">30%</div>
             <div style="font-family:'Oswald',sans-serif; font-weight:500; font-size:clamp(18px,2.4vw,24px); letter-spacing:7px; text-transform:uppercase; color:#F2F2F0; margin-top:2px;">OFF</div>
             <div style="width:40px; height:1px; background:rgba(242,242,240,.35); margin:26px auto;"></div>
