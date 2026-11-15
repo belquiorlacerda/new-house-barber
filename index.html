@@ -377,7 +377,7 @@
        cards. Esconder o bloco "30%/OFF" proprio da arte evita duplicar a
        mesma informacao duas vezes na tela, deixando so as fotos dos
        produtos como fundo, como nos demais cards. */
-    .bf-art-text { display:none !important; }
+    .bf-art-text, .bf-art-bg { display:none !important; }
     /* Cards 1 e 2 (foto nova do corte + os dois barbeiros — ambas fotos
        horizontais 16:9): renderizados ACIMA das camadas brancas
        compartilhadas (legacy-fade + veu da media-col) via z-index, e com um
@@ -627,10 +627,10 @@
     <div class="hero-media-col" style="position:absolute; top:0; right:0; bottom:0; width:56%; overflow:hidden;">
       <div class="hero-slide" data-slide="0" style="position:absolute; inset:0; opacity:1; transition:opacity .5s ease; background:linear-gradient(90deg, #F7F7F5 0%, #121212 42%); display:flex; align-items:center; justify-content:center;">
         <div style="position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden;">
-          <div style="position:absolute; top:7%; left:45%; width:160px; height:160px; border-radius:10px; background-image:url('assets/produtos/joru-nutri-action-shampoo.jpg'); background-size:cover; background-position:center; opacity:.55; filter:grayscale(.25) brightness(.85);"></div>
-          <div style="position:absolute; top:8%; right:6%; width:150px; height:150px; border-radius:10px; background-image:url('assets/produtos/yggi-oleo-barber.jpg'); background-size:cover; background-position:center; opacity:.55; filter:grayscale(.25) brightness(.85);"></div>
-          <div style="position:absolute; bottom:8%; left:44%; width:150px; height:150px; border-radius:10px; background-image:url('assets/produtos/joru-hydra-action-mascara.jpg'); background-size:cover; background-position:center; opacity:.5; filter:grayscale(.25) brightness(.85);"></div>
-          <div style="position:absolute; bottom:7%; right:7%; width:165px; height:165px; border-radius:10px; background-image:url('assets/produtos/yggi-balm-barber.jpg'); background-size:cover; background-position:center; opacity:.5; filter:grayscale(.25) brightness(.85);"></div>
+          <div class="bf-art-bg" style="position:absolute; top:7%; left:45%; width:160px; height:160px; border-radius:10px; background-image:url('assets/produtos/joru-nutri-action-shampoo.jpg'); background-size:cover; background-position:center; opacity:.55; filter:grayscale(.25) brightness(.85);"></div>
+          <div class="bf-art-bg" style="position:absolute; top:8%; right:6%; width:150px; height:150px; border-radius:10px; background-image:url('assets/produtos/yggi-oleo-barber.jpg'); background-size:cover; background-position:center; opacity:.55; filter:grayscale(.25) brightness(.85);"></div>
+          <div class="bf-art-bg" style="position:absolute; bottom:8%; left:44%; width:150px; height:150px; border-radius:10px; background-image:url('assets/produtos/joru-hydra-action-mascara.jpg'); background-size:cover; background-position:center; opacity:.5; filter:grayscale(.25) brightness(.85);"></div>
+          <div class="bf-art-bg" style="position:absolute; bottom:7%; right:7%; width:165px; height:165px; border-radius:10px; background-image:url('assets/produtos/yggi-balm-barber.jpg'); background-size:cover; background-position:center; opacity:.5; filter:grayscale(.25) brightness(.85);"></div>
           <div class="bf-art-text" style="position:relative; z-index:2; background:rgba(14,14,13,.72); padding:34px 46px; border-radius:6px; backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);">
             <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(90px,13vw,160px); letter-spacing:1px; color:#C9A227; line-height:0.9;">30%</div>
             <div style="font-family:'Oswald',sans-serif; font-weight:500; font-size:clamp(18px,2.4vw,24px); letter-spacing:7px; text-transform:uppercase; color:#F2F2F0; margin-top:2px;">OFF</div>
