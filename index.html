@@ -168,10 +168,10 @@
     .hero-slide[data-slide="1"] img, .hero-slide[data-slide="2"] img, .hero-slide[data-slide="3"] img {
       object-fit:cover !important; object-position:center center !important;
     }
-    /* Cards 1, 2, 3 e 4 (fotos escuras): a mascara compartilhada comeca em 0
+    /* Cards 0, 1, 2, 3 e 4 (fotos escuras): a mascara compartilhada comeca em 0
        (totalmente transparente) na borda esquerda, suavizando a transicao e
        eliminando qualquer degrau/risco vertical. */
-    .hero-slide[data-slide="1"] img, .hero-slide[data-slide="2"] img, .hero-slide[data-slide="3"] img, .hero-slide[data-slide="4"] img {
+    .hero-slide[data-slide="0"] img, .hero-slide[data-slide="1"] img, .hero-slide[data-slide="2"] img, .hero-slide[data-slide="3"] img, .hero-slide[data-slide="4"] img {
       -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
       mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
     }
@@ -180,6 +180,12 @@
     .hero-slide[data-slide="4"] img { object-fit:cover !important; object-position:center 30% !important; }
     .hero-media-legacy-fade { display:none !important; }
   }
+  /* Card 0 (arte Black Friday, formato paisagem): ao contrario das fotos
+     verticais dos demais cards, "cover" cortaria os dois lados do design
+     (o "BLACK FRIDAY" a esquerda e os produtos/marcas a direita). "contain"
+     preserva a arte inteira em qualquer largura (mobile, tablet, desktop),
+     com a propria cor de fundo do slide preenchendo as sobras. */
+  .hero-slide[data-slide="0"] img { object-fit:contain !important; }
   @media (min-width:901px) and (max-width:1099px){
     .hero-media-col { left:calc(24px + 340px + 1cm) !important; }
   }
@@ -371,13 +377,12 @@
        o título visualmente começa). Ancorar no topo fecha esse vão nos 4
        cards, sem alterar enquadramento/corte de nenhuma foto. */
     .hero-slide { align-items:flex-start !important; }
+    /* Card 0 (Black Friday): no mobile o card ocupa a largura toda (nao fica
+       ao lado do painel de texto claro), entao o gradiente claro->escuro
+       usado no desktop/tablet para "esmaecer" a entrada do card nao faz
+       sentido aqui - vira so uma mancha clara em cima da arte. Fundo solido
+       escuro, igual ao resto da arte. */
     .hero-slide[data-slide="0"] { background:#121212 !important; }
-    /* Card 1 (Black Friday): no mobile, o painel de texto (hero-panel) ja
-       mostra "BLACK FRIDAY 30% OFF" sobreposto a arte, igual aos outros
-       cards. Esconder o bloco "30%/OFF" proprio da arte evita duplicar a
-       mesma informacao duas vezes na tela, deixando so as fotos dos
-       produtos como fundo, como nos demais cards. */
-    .bf-art-text, .bf-art-bg { display:none !important; }
     /* Cards 1 e 2 (foto nova do corte + os dois barbeiros — ambas fotos
        horizontais 16:9): renderizados ACIMA das camadas brancas
        compartilhadas (legacy-fade + veu da media-col) via z-index, e com um
@@ -626,18 +631,7 @@
 
     <div class="hero-media-col" style="position:absolute; top:0; right:0; bottom:0; width:56%; overflow:hidden;">
       <div class="hero-slide" data-slide="0" style="position:absolute; inset:0; opacity:1; transition:opacity .5s ease; background:linear-gradient(90deg, #F7F7F5 0%, #121212 42%); display:flex; align-items:center; justify-content:center;">
-        <div style="position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden;">
-          <div class="bf-art-bg" style="position:absolute; top:7%; left:45%; width:160px; height:160px; border-radius:10px; background-image:url('assets/produtos/joru-nutri-action-shampoo.jpg'); background-size:cover; background-position:center; opacity:.55; filter:grayscale(.25) brightness(.85);"></div>
-          <div class="bf-art-bg" style="position:absolute; top:8%; right:6%; width:150px; height:150px; border-radius:10px; background-image:url('assets/produtos/yggi-oleo-barber.jpg'); background-size:cover; background-position:center; opacity:.55; filter:grayscale(.25) brightness(.85);"></div>
-          <div class="bf-art-bg" style="position:absolute; bottom:8%; left:44%; width:150px; height:150px; border-radius:10px; background-image:url('assets/produtos/joru-hydra-action-mascara.jpg'); background-size:cover; background-position:center; opacity:.5; filter:grayscale(.25) brightness(.85);"></div>
-          <div class="bf-art-bg" style="position:absolute; bottom:7%; right:7%; width:165px; height:165px; border-radius:10px; background-image:url('assets/produtos/yggi-balm-barber.jpg'); background-size:cover; background-position:center; opacity:.5; filter:grayscale(.25) brightness(.85);"></div>
-          <div class="bf-art-text" style="position:relative; z-index:2; background:rgba(14,14,13,.72); padding:34px 46px; border-radius:6px; backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);">
-            <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(90px,13vw,160px); letter-spacing:1px; color:#C9A227; line-height:0.9;">30%</div>
-            <div style="font-family:'Oswald',sans-serif; font-weight:500; font-size:clamp(18px,2.4vw,24px); letter-spacing:7px; text-transform:uppercase; color:#F2F2F0; margin-top:2px;">OFF</div>
-            <div style="width:40px; height:1px; background:rgba(242,242,240,.35); margin:26px auto;"></div>
-            <div style="font-family:'Barlow',sans-serif; font-size:clamp(12px,1.3vw,14px); letter-spacing:1.5px; text-transform:uppercase; color:#C9C9C6;">JORU Cosmetics <span style="color:#6B6B68;">&amp;</span> YGGI For Men</div>
-          </div>
-        </div>
+        <img src="assets/hero-blackfriday.webp" alt="Black Friday - Descontos de até 30% em produtos JORU e YGGI" fetchpriority="high" decoding="async" style="width:100%; height:100%; object-fit:contain; object-position:center;">
       </div>
       <div class="hero-slide" data-slide="1" style="position:absolute; inset:0; opacity:0; transition:opacity .5s ease; background:#F7F7F5; display:flex; align-items:center; justify-content:center;">
         <img src="assets/hero-corte-novo.jpg" alt="Corte de cabelo na New House Barber" fetchpriority="high" decoding="async" style="width:100%; height:100%; object-fit:contain; object-position:center;">
