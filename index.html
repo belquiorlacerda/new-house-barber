@@ -170,33 +170,18 @@
     }
     /* Cards 0, 1, 2, 3 e 4 (fotos escuras): a mascara compartilhada comeca em 0
        (totalmente transparente) na borda esquerda, suavizando a transicao e
-       eliminando qualquer degrau/risco vertical. */
-    .hero-slide[data-slide="1"] img, .hero-slide[data-slide="2"] img, .hero-slide[data-slide="3"] img, .hero-slide[data-slide="4"] img {
+       eliminando qualquer degrau/risco vertical. Card 0 (Black Friday) usa
+       exatamente o mesmo tratamento dos cards 2, 3 e 4 - cover + mascara -
+       em vez de um esquema proprio. */
+    .hero-slide[data-slide="0"] img, .hero-slide[data-slide="1"] img, .hero-slide[data-slide="2"] img, .hero-slide[data-slide="3"] img, .hero-slide[data-slide="4"] img {
       -webkit-mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
       mask-image:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,1) 70%) !important;
     }
+    .hero-slide[data-slide="0"] img { object-fit:cover !important; object-position:center center !important; }
     /* Card 4 (foto de produto, hero "Produtos New House"): mesmo tratamento
        (cover + máscara) dos demais cards, para manter a mesma qualidade visual. */
     .hero-slide[data-slide="4"] img { object-fit:cover !important; object-position:center 30% !important; }
     .hero-media-legacy-fade { display:none !important; }
-  }
-  /* Card 0 (arte Black Friday, formato paisagem): em algumas larguras o card
-     do hero fica bem mais estreito que a arte precisa (ex.: 901-1099px usa
-     so 36% de largura) - "cover" nesses casos cortava quase tudo dos lados
-     (so sobrava o "30%" central) e um veu de esmaecimento em % de largura
-     passava a cobrir o card quase inteiro, parecendo "em branco". "contain"
-     com fundo solido escuro evita as duas coisas: a arte inteira sempre
-     cabe (sem cortar nada), e as sobras (quando existem) ficam escuras,
-     se misturando com a propria arte em vez de aparecer como uma tarja
-     de cor diferente. */
-  .hero-slide[data-slide="0"] img { object-fit:contain !important; object-position:center center !important; }
-  .hero-slide[data-slide="0"] .bf-fade { display:none; }
-  @media (min-width:641px){
-    .hero-slide[data-slide="0"] .bf-fade {
-      display:block; position:absolute; inset:0;
-      background:linear-gradient(90deg, rgba(247,247,245,.9) 0, rgba(247,247,245,0) 90px);
-      pointer-events:none;
-    }
   }
   @media (min-width:901px) and (max-width:1099px){
     .hero-media-col { left:calc(24px + 340px + 1cm) !important; }
@@ -650,7 +635,6 @@
     <div class="hero-media-col" style="position:absolute; top:0; right:0; bottom:0; width:56%; overflow:hidden;">
       <div class="hero-slide" data-slide="0" style="position:absolute; inset:0; opacity:1; transition:opacity .5s ease; background:#0C0C0C; display:flex; align-items:center; justify-content:center;">
         <img src="assets/hero-blackfriday.webp" alt="Black Friday - Descontos de até 30% em produtos JORU e YGGI" fetchpriority="high" decoding="async" style="width:100%; height:100%; object-fit:cover; object-position:center;">
-        <div class="bf-fade"></div>
       </div>
       <div class="hero-slide" data-slide="1" style="position:absolute; inset:0; opacity:0; transition:opacity .5s ease; background:#F7F7F5; display:flex; align-items:center; justify-content:center;">
         <img src="assets/hero-corte-novo.jpg" alt="Corte de cabelo na New House Barber" fetchpriority="high" decoding="async" style="width:100%; height:100%; object-fit:contain; object-position:center;">
