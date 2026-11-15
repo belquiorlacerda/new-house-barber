@@ -383,6 +383,12 @@
        sentido aqui - vira so uma mancha clara em cima da arte. Fundo solido
        escuro, igual ao resto da arte. */
     .hero-slide[data-slide="0"] { background:#121212 !important; }
+    /* Card 0 (Black Friday) no mobile: a arte ja traz "BLACK FRIDAY 30%"
+       escrito nela mesma, igual ao texto do painel por cima - mostrando a
+       peca inteira (contain) duplicava essa frase na tela. Usar "cover"
+       com foco a direita corta a parte do texto da arte e mostra so os
+       produtos, sem repetir a mensagem. */
+    .hero-slide[data-slide="0"] img { object-fit:cover !important; object-position:85% center !important; }
     /* Cards 1 e 2 (foto nova do corte + os dois barbeiros — ambas fotos
        horizontais 16:9): renderizados ACIMA das camadas brancas
        compartilhadas (legacy-fade + veu da media-col) via z-index, e com um
