@@ -180,20 +180,21 @@
     .hero-slide[data-slide="4"] img { object-fit:cover !important; object-position:center 30% !important; }
     .hero-media-legacy-fade { display:none !important; }
   }
-  /* Card 0 (arte Black Friday, formato paisagem): preenche o card inteiro
-     ("cover", igual aos demais cards) em vez de "contain" - esse ultimo
-     deixava faixas vazias (cinzas ou brancas, dependendo do fundo) acima/
-     abaixo da arte sempre que o card ficava mais alto que a proporcao da
-     imagem, o que acontece em varias larguras. O corte lateral do "cover"
-     e minimo (a arte tem boa margem escura nas bordas antes do texto/
-     produtos). O esmaecimento da esquerda fica por conta de um veu proprio
-     (ver abaixo), nao da mascara usada nos outros cards. */
-  .hero-slide[data-slide="0"] img { object-fit:cover !important; object-position:center center !important; }
+  /* Card 0 (arte Black Friday, formato paisagem): em algumas larguras o card
+     do hero fica bem mais estreito que a arte precisa (ex.: 901-1099px usa
+     so 36% de largura) - "cover" nesses casos cortava quase tudo dos lados
+     (so sobrava o "30%" central) e um veu de esmaecimento em % de largura
+     passava a cobrir o card quase inteiro, parecendo "em branco". "contain"
+     com fundo solido escuro evita as duas coisas: a arte inteira sempre
+     cabe (sem cortar nada), e as sobras (quando existem) ficam escuras,
+     se misturando com a propria arte em vez de aparecer como uma tarja
+     de cor diferente. */
+  .hero-slide[data-slide="0"] img { object-fit:contain !important; object-position:center center !important; }
   .hero-slide[data-slide="0"] .bf-fade { display:none; }
   @media (min-width:641px){
     .hero-slide[data-slide="0"] .bf-fade {
       display:block; position:absolute; inset:0;
-      background:linear-gradient(90deg, rgba(247,247,245,1) 0%, rgba(247,247,245,0) 38%);
+      background:linear-gradient(90deg, rgba(247,247,245,.9) 0, rgba(247,247,245,0) 90px);
       pointer-events:none;
     }
   }
