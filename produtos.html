@@ -595,6 +595,16 @@
           </div>
         </div>
 
+        <div class="produto-card reveal" data-produto='{"nome":"Shampoo Ice","marca":"Barba de Respeito","desc":"Limpeza profunda · Força e maciez · Refrescância marcante","volume":"220ml"}'>
+          <div class="produto-photo"><img src="assets/produtos/barba-de-respeito-shampoo-ice.jpg" alt="Shampoo Ice, Barba de Respeito" loading="lazy" decoding="async"></div>
+          <div class="produto-info">
+            <div class="produto-nome">Shampoo Ice</div>
+            <div class="produto-marca">Barba de Respeito</div>
+            <div class="produto-desc">Limpeza profunda · Força e maciez · Refrescância marcante · 220ml</div>
+            <a href="https://wa.me/5517997550146?text=Vim%20pelo%20site%20e%20tenho%20interesse%20no%20produto%20Shampoo%20Ice%2C%20Barba%20de%20Respeito." target="_blank" rel="noopener" class="produto-btn">Tenho interesse</a>
+          </div>
+        </div>
+
       </div>
 
       <div style="text-align:center; margin-top:46px;">
@@ -702,7 +712,7 @@
       if (p.por) {
         linhas.push('De: ' + p.de);
         linhas.push('Por: ' + p.por);
-      } else {
+      } else if (p.preco) {
         linhas.push('Valor: ' + p.preco);
       }
       linhas.push(p.por ? 'Gostaria de aproveitar essa promoção e saber mais informações!' : 'Gostaria de saber mais informações sobre esse produto!');
