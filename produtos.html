@@ -105,6 +105,28 @@
   @media (prefers-reduced-motion: reduce) {
     .produto-card:has(.produto-badge-bf), .mini-promo { animation:none; box-shadow:0 0 0 1px rgba(201,162,39,.5); }
   }
+
+  /* Brilho passando (shine sweep) nos selos, botoes e banner de Black
+     Friday, para dar vida a pagina inteira sem poluir o layout. */
+  .bf-shine, .produto-badge-bf, .mini-promo-badge, .produto-card:has(.produto-badge-bf) .produto-btn, .mini-promo-btn, .bf-banner-glow {
+    position:relative; overflow:hidden;
+  }
+  .bf-shine::after, .produto-badge-bf::after, .mini-promo-badge::after, .produto-card:has(.produto-badge-bf) .produto-btn::after, .mini-promo-btn::after, .bf-banner-glow::after {
+    content:''; position:absolute; top:0; left:0; width:30%; height:100%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,.65), transparent);
+    transform:translateX(-250%) skewX(-20deg);
+    animation:bf-shine 3.4s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .bf-banner-glow::after { animation-duration:4s; }
+  .mini-promo-badge::after, .mini-promo-btn::after { animation-duration:2.8s; }
+  @keyframes bf-shine {
+    0%, 15% { transform:translateX(-250%) skewX(-20deg); }
+    55%, 100% { transform:translateX(450%) skewX(-20deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bf-shine::after, .produto-badge-bf::after, .mini-promo-badge::after, .produto-card:has(.produto-badge-bf) .produto-btn::after, .mini-promo-btn::after, .bf-banner-glow::after { animation:none; display:none; }
+  }
   .produto-info { padding:18px 18px 22px; flex:1; }
   .produto-nome { font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:1px; text-transform:uppercase; color:#141414; }
   .produto-marca { font-family:'Oswald',sans-serif; font-size:10.5px; letter-spacing:1.8px; text-transform:uppercase; color:#A9812F; margin-top:4px; }
@@ -287,7 +309,7 @@
       </nav>
       <div class="intro-flex">
         <div class="intro-text" style="max-width:680px;">
-          <div style="display:inline-flex; align-items:center; gap:9px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:#A9812F; margin-bottom:16px; background:#141414; padding:6px 13px;">★ Black Friday · Até 30% OFF</div>
+          <div class="bf-shine" style="display:inline-flex; align-items:center; gap:9px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:#A9812F; margin-bottom:16px; background:#141414; padding:6px 13px;">★ Black Friday · Até 30% OFF</div>
           <h1 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:clamp(34px,5.5vw,58px); line-height:1.02; letter-spacing:0.5px; text-transform:uppercase; color:#141414;">Catálogo de Produtos</h1>
           <p style="font-family:'Barlow',sans-serif; font-size:16px; color:#5A5A5A; margin-top:18px; max-width:560px; line-height:1.7;">Os produtos que fazem parte da experiência New House — com descontos especiais de Black Friday em JORU e YGGI.</p>
         </div>
