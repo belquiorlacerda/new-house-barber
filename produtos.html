@@ -74,7 +74,7 @@
      com a mesma altura. auto-fit encaixa mais colunas no desktop/tablet e
      1 coluna em telas estreitas de mobile, sem apertar os cards. */
   .produtos-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:22px; }
-  .produto-card { background:#FFFFFF; border:1px solid #E4E4E2; overflow:hidden; display:flex; flex-direction:column; transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease; }
+  .produto-card { background:#FFFFFF; border:1px solid #C9A227; overflow:hidden; display:flex; flex-direction:column; transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease; animation:bf-glow 2.6s ease-in-out infinite; }
   .produto-card:hover { transform:translateY(-5px); border-color:#C9A227; box-shadow:0 16px 34px -20px rgba(0,0,0,0.33); }
   .produto-photo { position:relative; aspect-ratio:4/5; overflow:hidden; background:#F2F2F0; }
   .produto-photo img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
@@ -101,17 +101,18 @@
     50% { box-shadow:0 0 0 1px rgba(201,162,39,.75), 0 0 34px rgba(201,162,39,.3); }
   }
   @media (prefers-reduced-motion: reduce) { .bf-banner-glow { animation:none; box-shadow:0 0 0 1px rgba(201,162,39,.5); } }
-  .produto-card:has(.produto-badge-bf), .mini-promo { animation:bf-glow 2.6s ease-in-out infinite; }
+  .produto-card, .mini-promo { animation:bf-glow 2.6s ease-in-out infinite; }
   @media (prefers-reduced-motion: reduce) {
-    .produto-card:has(.produto-badge-bf), .mini-promo { animation:none; box-shadow:0 0 0 1px rgba(201,162,39,.5); }
+    .produto-card, .mini-promo { animation:none; box-shadow:0 0 0 1px rgba(201,162,39,.5); }
   }
 
-  /* Brilho passando (shine sweep) nos selos, botoes e banner de Black
-     Friday, para dar vida a pagina inteira sem poluir o layout. */
-  .bf-shine, .produto-card:has(.produto-badge-bf) .produto-btn, .mini-promo-btn, .bf-banner-glow {
+  /* Brilho passando (shine sweep) nos botoes e banner de Black Friday —
+     em TODOS os botoes de produto, nao so os com selo Black Friday, para
+     dar vida a pagina inteira sem poluir o layout. */
+  .bf-shine, .produto-btn, .mini-promo-btn, .bf-banner-glow {
     position:relative; overflow:hidden;
   }
-  .bf-shine::after, .produto-card:has(.produto-badge-bf) .produto-btn::after, .mini-promo-btn::after, .bf-banner-glow::after {
+  .bf-shine::after, .produto-btn::after, .mini-promo-btn::after, .bf-banner-glow::after {
     content:''; position:absolute; top:0; left:0; width:30%; height:100%;
     background:linear-gradient(120deg, transparent, rgba(255,255,255,.65), transparent);
     transform:translateX(-250%) skewX(-20deg);
@@ -125,7 +126,7 @@
     55%, 100% { transform:translateX(450%) skewX(-20deg); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .bf-shine::after, .produto-card:has(.produto-badge-bf) .produto-btn::after, .mini-promo-btn::after, .bf-banner-glow::after { animation:none; display:none; }
+    .bf-shine::after, .produto-btn::after, .mini-promo-btn::after, .bf-banner-glow::after { animation:none; display:none; }
   }
   .produto-info { padding:18px 18px 22px; flex:1; }
   .produto-nome { font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:1px; text-transform:uppercase; color:#141414; }
@@ -134,7 +135,6 @@
   .produto-btn, .produto-btn:hover, .produto-btn:visited { color:#FFFFFF; }
   .produto-btn { display:block; text-align:center; margin-top:14px; font-family:'Oswald',sans-serif; font-weight:600; font-size:11.5px; letter-spacing:1.3px; text-transform:uppercase; padding:11px; background:#141414; transition:background .3s ease; }
   .produto-btn:hover { background:#C9A227; }
-  .produto-card:has(.produto-badge-bf) { border-color:#C9A227; }
   .produto-card:has(.produto-badge-bf) .produto-btn, .produto-card:has(.produto-badge-bf) .produto-btn:visited { background:#C9A227; color:#1A1508; }
   .produto-card:has(.produto-badge-bf) .produto-btn:hover { background:#141414; color:#C9A227; }
   .produto-preco-cat { font-family:'Oswald',sans-serif; font-weight:700; font-size:17px; color:#141414; margin-top:10px; }
@@ -737,7 +737,9 @@
     var WHATSAPP_NUM = '5517997550146';
 
     function buildMessage(p){
-      var linhas = ['Olá! Vim pelo site da New House Barber e tenho interesse no seguinte produto:'];
+      var linhas = p.blackFriday
+        ? ['Olá! Vi que o produto ' + p.nome + ' (' + p.marca + ') está na Black Friday e queria aproveitar os 30% de desconto!']
+        : ['Olá! Vim pelo site da New House Barber e tenho interesse no seguinte produto:'];
       linhas.push('Produto: ' + p.nome);
       linhas.push('Marca: ' + p.marca);
       linhas.push('Descrição: ' + p.desc);
@@ -748,7 +750,9 @@
       } else if (p.preco) {
         linhas.push('Valor: ' + p.preco);
       }
-      linhas.push(p.por ? 'Gostaria de aproveitar essa promoção e saber mais informações!' : 'Gostaria de saber mais informações sobre esse produto!');
+      if (!p.blackFriday) {
+        linhas.push(p.por ? 'Gostaria de aproveitar essa promoção e saber mais informações!' : 'Gostaria de saber mais informações sobre esse produto!');
+      }
       return linhas.join('\n');
     }
 
@@ -761,6 +765,7 @@
     cards.forEach(function(el){
       var data;
       try { data = JSON.parse(el.getAttribute('data-produto')); } catch(e){ return; }
+      data.blackFriday = !!el.querySelector('.produto-badge-bf');
       var btn = el.querySelector('.produto-btn');
       if (btn) btn.setAttribute('href', waLink(data));
       var img = el.querySelector('.produto-photo img');
