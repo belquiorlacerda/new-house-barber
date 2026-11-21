@@ -108,10 +108,10 @@
 
   /* Brilho passando (shine sweep) nos selos, botoes e banner de Black
      Friday, para dar vida a pagina inteira sem poluir o layout. */
-  .bf-shine, .produto-badge-bf, .mini-promo-badge, .produto-card:has(.produto-badge-bf) .produto-btn, .mini-promo-btn, .bf-banner-glow {
+  .bf-shine, .produto-card:has(.produto-badge-bf) .produto-btn, .mini-promo-btn, .bf-banner-glow {
     position:relative; overflow:hidden;
   }
-  .bf-shine::after, .produto-badge-bf::after, .mini-promo-badge::after, .produto-card:has(.produto-badge-bf) .produto-btn::after, .mini-promo-btn::after, .bf-banner-glow::after {
+  .bf-shine::after, .produto-card:has(.produto-badge-bf) .produto-btn::after, .mini-promo-btn::after, .bf-banner-glow::after {
     content:''; position:absolute; top:0; left:0; width:30%; height:100%;
     background:linear-gradient(120deg, transparent, rgba(255,255,255,.65), transparent);
     transform:translateX(-250%) skewX(-20deg);
@@ -119,13 +119,13 @@
     pointer-events:none;
   }
   .bf-banner-glow::after { animation-duration:4s; }
-  .mini-promo-badge::after, .mini-promo-btn::after { animation-duration:2.8s; }
+  .mini-promo-btn::after { animation-duration:2.8s; }
   @keyframes bf-shine {
     0%, 15% { transform:translateX(-250%) skewX(-20deg); }
     55%, 100% { transform:translateX(450%) skewX(-20deg); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .bf-shine::after, .produto-badge-bf::after, .mini-promo-badge::after, .produto-card:has(.produto-badge-bf) .produto-btn::after, .mini-promo-btn::after, .bf-banner-glow::after { animation:none; display:none; }
+    .bf-shine::after, .produto-card:has(.produto-badge-bf) .produto-btn::after, .mini-promo-btn::after, .bf-banner-glow::after { animation:none; display:none; }
   }
   .produto-info { padding:18px 18px 22px; flex:1; }
   .produto-nome { font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:1px; text-transform:uppercase; color:#141414; }
