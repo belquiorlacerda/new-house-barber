@@ -128,6 +128,24 @@
   @media (prefers-reduced-motion: reduce) {
     .bf-shine::after, .produto-btn::after, .mini-promo-btn::after, .bf-banner-glow::after { animation:none; display:none; }
   }
+
+  /* Brilho suave nos selos "Black Friday" — mais largo, mais fraco e
+     desfocado (sem a aresta reta que parecia um risco branco). */
+  .produto-badge-bf, .mini-promo-badge { position:relative; overflow:hidden; }
+  .produto-badge-bf::after, .mini-promo-badge::after {
+    content:''; position:absolute; top:0; left:0; width:60%; height:100%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,.4), transparent);
+    transform:translateX(-170%);
+    animation:bf-shine-soft 3.4s ease-in-out infinite;
+    pointer-events:none; filter:blur(3px);
+  }
+  @keyframes bf-shine-soft {
+    0%, 20% { transform:translateX(-170%); }
+    60%, 100% { transform:translateX(220%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .produto-badge-bf::after, .mini-promo-badge::after { animation:none; display:none; }
+  }
   .produto-info { padding:18px 18px 22px; flex:1; }
   .produto-nome { font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:1px; text-transform:uppercase; color:#141414; }
   .produto-marca { font-family:'Oswald',sans-serif; font-size:10.5px; letter-spacing:1.8px; text-transform:uppercase; color:#A9812F; margin-top:4px; }
