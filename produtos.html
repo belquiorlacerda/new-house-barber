@@ -101,6 +101,10 @@
     50% { box-shadow:0 0 0 1px rgba(201,162,39,.75), 0 0 34px rgba(201,162,39,.3); }
   }
   @media (prefers-reduced-motion: reduce) { .bf-banner-glow { animation:none; box-shadow:0 0 0 1px rgba(201,162,39,.5); } }
+  .produto-card:has(.produto-badge-bf), .mini-promo { animation:bf-glow 2.6s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) {
+    .produto-card:has(.produto-badge-bf), .mini-promo { animation:none; box-shadow:0 0 0 1px rgba(201,162,39,.5); }
+  }
   .produto-info { padding:18px 18px 22px; flex:1; }
   .produto-nome { font-family:'Oswald',sans-serif; font-weight:600; font-size:15px; letter-spacing:1px; text-transform:uppercase; color:#141414; }
   .produto-marca { font-family:'Oswald',sans-serif; font-size:10.5px; letter-spacing:1.8px; text-transform:uppercase; color:#A9812F; margin-top:4px; }
